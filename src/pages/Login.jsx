@@ -1,8 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -14,10 +13,9 @@ import {
 import { Button } from "@/components/ui/button";
 
 const AuthForm = () => {
-  const { setToken } = useContext(AppContext);
+  const { setToken, API_BASE_URL } = useContext(AppContext);
   const navigate = useNavigate();
 
-  // Initial form data structure
   const getInitialFormData = () => ({
     name: "",
     email: "",
@@ -25,70 +23,71 @@ const AuthForm = () => {
     password_confirmation: "",
   });
 
-  // State Management
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState(getInitialFormData());
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    let judul = isLogin ? "Masuk" : "Register";
-    document.title = `Yulita Cakes - ${judul}`;
+    document.title = `Yulita Cakes - ${isLogin ? "Masuk" : "Daftar"}`;
   }, [isLogin]);
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: null,
-      global: null,
-    }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+    if (errors[name]) {
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
+    }
+    if (errors.global) {
+      setErrors((prevErrors) => ({ ...prevErrors, global: null }));
+    }
   };
 
-  // Client-side form validation function
   const validateFormData = (data) => {
-    const errors = {};
-
-    if (!data.email) errors.email = ["Email wajib diisi."];
-    if (!data.password) errors.password = ["Password wajib diisi."];
+    const newErrors = {};
+    if (!isLogin && !data.name.trim()) newErrors.name = ["Nama wajib diisi."];
+    if (!data.email.trim()) newErrors.email = ["Email wajib diisi."];
+    else if (!/\S+@\S+\.\S+/.test(data.email))
+      newErrors.email = ["Format email tidak valid."];
+    if (!data.password) newErrors.password = ["Password wajib diisi."];
+    else if (!isLogin && data.password.length < 8)
+      newErrors.password = ["Password minimal 8 karakter."];
 
     if (!isLogin) {
-      if (!data.name) errors.name = ["Nama wajib diisi."];
       if (!data.password_confirmation)
-        errors.password_confirmation = ["Konfirmasi password wajib diisi."];
-      if (data.password !== data.password_confirmation)
-        errors.password_confirmation = ["Konfirmasi password tidak cocok."];
+        newErrors.password_confirmation = ["Konfirmasi password wajib diisi."];
+      else if (data.password !== data.password_confirmation)
+        newErrors.password_confirmation = ["Konfirmasi password tidak cocok."];
     }
-
-    return errors;
+    return newErrors;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Client-side validation
     const validationErrors = validateFormData(formData);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
-    const endpoint = isLogin ? "/api/user/login" : "/api/user/register";
+    setIsLoading(true);
+    setErrors({});
+
+    const endpoint = isLogin
+      ? `${API_BASE_URL}/user/login`
+      : `${API_BASE_URL}/user/register`;
+    const payload = isLogin
+      ? { email: formData.email, password: formData.password }
+      : formData;
 
     try {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -105,151 +104,151 @@ const AuthForm = () => {
         }
       } else if (response.status === 422) {
         setErrors(data.errors || {});
+        toast.error("Periksa kembali data isian Anda.");
       } else {
-        throw new Error(
-          data.message || "Terjadi kesalahan, silakan coba lagi."
-        );
+        setErrors({ global: data.message || "Terjadi kesalahan pada server." });
+        toast.error(data.message || "Terjadi kesalahan, silakan coba lagi.");
       }
     } catch (error) {
       console.error("Error during authentication:", error);
-      toast.error(
-        error.message || "Terjadi kesalahan jaringan, silakan coba lagi."
-      );
+      setErrors({ global: "Tidak dapat terhubung ke server." });
+      toast.error("Terjadi kesalahan jaringan, silakan coba lagi.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // Reset the form to initial state
   const resetForm = () => {
     setFormData(getInitialFormData());
     setErrors({});
+    setIsLoading(false);
   };
 
-  // Toggle between login and register forms
   const toggleForm = () => {
     resetForm();
     setIsLogin(!isLogin);
   };
 
+  const renderFormField = (field) => (
+    <div key={field.name} className="grid w-full items-center gap-1.5">
+      <label
+        htmlFor={field.name}
+        className="text-sm font-medium leading-none text-gray-700 dark:text-gray-300 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      >
+        {field.label}
+      </label>
+      <input
+        type={field.type}
+        id={field.name}
+        name={field.name}
+        placeholder={field.placeholder || field.label}
+        value={formData[field.name]}
+        onChange={handleChange}
+        required={field.required}
+        className={`flex h-10 w-full rounded-md border bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-800 dark:text-gray-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+          errors[field.name]
+            ? "border-red-500"
+            : "border-gray-300 dark:border-gray-600"
+        }`}
+        disabled={isLoading}
+      />
+      {errors[field.name] && (
+        <p className="text-red-500 text-sm mt-1">{errors[field.name][0]}</p>
+      )}
+    </div>
+  );
+
+  const formFields = [
+    { label: "Email", name: "email", type: "email", required: true },
+    { label: "Password", name: "password", type: "password", required: true },
+  ];
+
+  if (!isLogin) {
+    formFields.unshift({
+      label: "Nama Lengkap",
+      name: "name",
+      type: "text",
+      required: true,
+    });
+    formFields.push({
+      label: "Konfirmasi Password",
+      name: "password_confirmation",
+      type: "password",
+      required: true,
+    });
+  }
+
   return (
-    <div className="container mx-auto px-4 py-32 flex justify-center items-center min-h-[calc(100vh-10rem)]">
-      <Card className="w-full max-w-md dark:bg-gray-900">
+    <div className="container mx-auto px-4 py-16 md:py-24 flex justify-center items-center min-h-[calc(100vh-8rem)]">
+      <Card className="w-full max-w-md dark:bg-gray-950 shadow-lg">
         <CardHeader className="space-y-1 text-center">
-          {/* Title Section */}
-          <CardTitle className="text-2xl font-serif">
-            <h1 className="dark:text-pink-500 text-4xl">
-              {isLogin ? "Masuk" : "Daftar"}
-            </h1>
+          <CardTitle className="text-3xl font-bold font-serif dark:text-pink-400">
+            {isLogin ? "Masuk Akun" : "Daftar Akun Baru"}
           </CardTitle>
-          <CardDescription>
-            Masukkan Email dan Password Anda untuk masuk.
-            {/* Error Message */}
-            {errors.global && (
-              <div className="text-red-500 text-sm bg-red-100 px-4 py-2 rounded-md">
-                <p>{errors.global}</p>
-              </div>
-            )}
+          <CardDescription className="dark:text-gray-400">
+            {isLogin
+              ? "Masukkan email dan password Anda."
+              : "Isi data berikut untuk membuat akun."}
           </CardDescription>
+          {errors.global && (
+            <div className="text-red-600 dark:text-red-400 text-sm bg-red-100 dark:bg-red-900/30 px-4 py-2 rounded-md border border-red-200 dark:border-red-800/50">
+              <p>{errors.global}</p>
+            </div>
+          )}
         </CardHeader>
-
         <CardContent>
-          <form
-            onSubmit={handleSubmit}
-            className="accent flex flex-col items-center w-[90%] sm:max-w-96 m-auto gap-5 text-gray-700 bg-white p-8 rounded-3xl shadow-lg"
-          >
-            {/* Form Fields */}
-            {renderFormFields()}
-
-            {/* Submit Button */}
-            <Button className="font-medium px-8 py-3 mt-4 rounded-full transition duration-300 shadow-md dark:bg-pink-600">
-              {isLogin ? "Masuk" : "Daftar"}
+          <form onSubmit={handleSubmit} className="grid gap-4">
+            {formFields.map(renderFormField)}
+            <Button
+              type="submit"
+              className="w-full mt-4 dark:bg-pink-600 dark:hover:bg-pink-700"
+              disabled={isLoading}
+            >
+              {isLoading
+                ? isLogin
+                  ? "Memproses..."
+                  : "Mendaftar..."
+                : isLogin
+                ? "Masuk"
+                : "Daftar"}
             </Button>
           </form>
         </CardContent>
-        <CardFooter className="flex flex-col space-y-4">
-          {/* Switch Form Type */}
-          <p className="mt-4 text-sm">
+        <CardFooter className="flex flex-col items-center space-y-3 pt-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             {isLogin ? "Belum punya akun?" : "Sudah punya akun?"}{" "}
             <span
-              className="text-pink-500 cursor-pointer font-semibold"
+              className="text-pink-600 dark:text-pink-400 cursor-pointer font-semibold hover:underline"
               onClick={toggleForm}
             >
-              {isLogin ? "Daftar" : "Masuk"}
+              {isLogin ? "Daftar di sini" : "Masuk di sini"}
             </span>
           </p>
-          <div className="text-xs text-center text-gray-500 dark:text-gray-400">
-            Dengan masuk, Anda menyetujui{" "}
-            <Link to="/terms" className="underline">
-              Syarat Layanan
-            </Link>{" "}
-            dan{" "}
-            <Link to="/privacy" className="underline">
-              Kebijakan Privasi
-            </Link>{" "}
-            Kami
-          </div>
-
-          {/* Forgot Password */}
           {isLogin && (
-            <p className="mt-2 text-sm">
-              <Link to="/forgot-password" className="text-pink-500 font-medium">
+            <p className="text-sm">
+              <Link
+                to="/forgot-password"
+                className="text-pink-600 dark:text-pink-400 hover:underline"
+              >
                 Lupa Password?
               </Link>
             </p>
           )}
+          <div className="text-xs text-center text-gray-500 dark:text-gray-400 pt-2">
+            Dengan melanjutkan, Anda menyetujui{" "}
+            <Link to="/terms" className="underline hover:text-pink-500">
+              Syarat Layanan
+            </Link>{" "}
+            &{" "}
+            <Link to="/privacy" className="underline hover:text-pink-500">
+              Kebijakan Privasi
+            </Link>
+            .
+          </div>
         </CardFooter>
       </Card>
     </div>
   );
-
-  // Render form fields with validation
-  function renderFormFields() {
-    const fields = [];
-
-    if (!isLogin) {
-      fields.push({
-        label: "Nama Lengkap",
-        name: "name",
-        type: "text",
-        required: true,
-      });
-    }
-
-    fields.push(
-      { label: "Email", name: "email", type: "email", required: true },
-      { label: "Password", name: "password", type: "password", required: true }
-    );
-
-    if (!isLogin) {
-      fields.push({
-        label: "Konfirmasi Password",
-        name: "password_confirmation",
-        type: "password",
-        required: true,
-      });
-    }
-
-    return (
-      <>
-        {fields.map((field) => (
-          <div key={field.name} className="w-full">
-            <input
-              name={field.name}
-              onChange={handleChange}
-              value={formData[field.name]}
-              type={field.type}
-              className="w-full px-3 py-2 bg-white dark:bg-pink-50 text-gray-800 border border-pink-500 rounded-lg 
-                     placeholder-gray-400 dark:placeholder-gray-600"
-              placeholder={field.label}
-              required={field.required}
-            />
-            {errors[field.name] && (
-              <p className="text-red-500 text-sm">{errors[field.name][0]}</p>
-            )}
-          </div>
-        ))}
-      </>
-    );
-  }
 };
 
 export default AuthForm;

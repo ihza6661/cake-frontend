@@ -1,214 +1,238 @@
 import { useContext, useState, useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { ChevronLeft } from "lucide-react";
-import { assets } from "../assets/assets";
+import { ChevronLeft, Menu as MenuIcon } from "lucide-react";
 import { AppContext } from "../context/AppContext";
 import DarkModeToggle from "./ui/DarkModeToggle";
+
+const navLinksData = [
+  { path: "/", label: "Beranda" },
+  { path: "/collection", label: "Produk" },
+  { path: "/about", label: "Tentang Kami" },
+  { path: "/contact", label: "Kontak" },
+];
 
 const Navbar = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const {
-    getCartCount,
-    token,
-    // setToken,
-    // setCartItems,
-    // authFetch,
-    handleLogout,
-  } = useContext(AppContext);
-  // const navigate = useNavigate();
+  const { getCartCount, token, handleLogout } = useContext(AppContext);
+  const location = useLocation();
 
   const profileRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // useEffect(() => {
-  //   setIsMenuOpen(false);
-  // }, [location]);
+  useEffect(() => {
+    setSidebarVisible(false);
+  }, [location]);
 
-  // Close dropdown jika klik di luar
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setShowProfileDropdown(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "py-4 sm:py-4 shadow-md bg-gray-100 dark:bg-black md:dark:bg-black/50 md:backdrop-blur-lg"
-          : " py-6 sm:py-4  shadow-md bg-gray-100/50 dark:bg-black/50"
+          ? "py-3 sm:py-3 shadow-md bg-gray-100/80 dark:bg-black/60 backdrop-blur-lg"
+          : "py-4 sm:py-4 bg-gray-100/50 dark:bg-black/50"
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex flex-col">
-          <Link to="/" className="text-xl sm:text-2xl font-serif font-bold">
-            <h2 className="dark:text-gray-300">Yulita Cakes</h2>
-          </Link>
-        </div>
+        <Link
+          to="/"
+          className="text-xl sm:text-2xl font-serif font-bold"
+          aria-label="Beranda Yulita Cakes"
+        >
+          <h2 className="dark:text-gray-200 text-gray-900">Yulita Cakes</h2>
+        </Link>
 
-        {/* Navigation Links */}
-        <ul className="hidden sm:flex gap-8 text-lg">
-          {["/", "/collection", "/about", "/contact"].map((path, index) => (
+        <nav className="hidden sm:flex items-center gap-6 text-lg">
+          {navLinksData.map((link) => (
             <NavLink
-              to={path}
-              key={index}
-              className="flex flex-col items-center gap-2 group"
-              isActive="text-gray-900 dark:text-gray-200"
+              to={link.path}
+              key={link.path}
+              className="relative group py-1"
               end
             >
               {({ isActive }) => (
                 <>
-                  <p
-                    className={`text-gray-900 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out font-semibold text-lg md:text-base whitespace-nowrap md:mr-5 ${
+                  <span
+                    className={`text-gray-800 hover:text-pink-700 dark:text-gray-300 dark:hover:text-pink-400 transition-colors duration-200 ease-in-out font-medium text-base whitespace-nowrap ${
                       isActive ? "text-pink-700 dark:text-pink-400" : ""
                     }`}
                   >
-                    {["Beranda", "Produk", "Tentang Kami", "Kontak"][index]}
-                  </p>
-                  <div
-                    className={`w-1/2 h-[2px] bg-pink-900 dark:bg-pink-400 transition-all duration-500 ease-in-out transform scale-x-0 group-hover:scale-x-100 origin-left ${
-                      isActive ? "scale-x-100 bg-pink-900 dark:bg-pink-400" : ""
+                    {link.label}
+                  </span>
+                  <span
+                    className={`absolute bottom-0 left-0 w-full h-[2px] bg-pink-700 dark:bg-pink-400 transition-transform duration-300 ease-in-out transform scale-x-0 group-hover:scale-x-100 origin-center ${
+                      isActive ? "scale-x-100" : ""
                     }`}
                   />
                 </>
               )}
             </NavLink>
           ))}
-        </ul>
+        </nav>
 
-        {/* Icons Section */}
-        <div className="flex items-center gap-4">
-          {/* User Icon with Dropdown */}
-          <div
-            className="relative flex gap-4 items-center justify-center"
-            ref={profileRef}
-          >
-            <DarkModeToggle />
+        <div className="flex items-center gap-4 md:gap-5">
+          <DarkModeToggle />
+
+          <div className="relative flex items-center" ref={profileRef}>
             {token ? (
               <>
-                <FontAwesomeIcon
-                  icon={faUser}
-                  className="cursor-pointer text-xl text-gray-800 dark:text-gray-300"
+                <button
+                  type="button"
+                  aria-label="Profil Pengguna"
                   onClick={() => setShowProfileDropdown((prev) => !prev)}
-                />
+                  className="text-xl text-gray-800 dark:text-gray-300 hover:text-pink-700 dark:hover:text-pink-400 transition-colors"
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                </button>
                 <div
-                  className={`absolute right-2 top-8 mt-2 w-40 glass rounded-md shadow-lg transition-all duration-100 ease-in-out transform ${
+                  className={`absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-150 ease-out transform origin-top-right z-50 ${
                     showProfileDropdown
                       ? "opacity-100 scale-100"
                       : "opacity-0 scale-95 pointer-events-none"
                   }`}
-                  style={{ zIndex: 1000 }}
                 >
-                  <div className="text-sm rounded-lg shadow-md">
+                  <div
+                    className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu-button"
+                  >
                     <Link
-                      to="/dashboard"
+                      to="/dashboard" // Pastikan route ini ada
                       onClick={() => setShowProfileDropdown(false)}
-                      className="block px-4 py-2 font-semibold hover:bg-pink-300 dark:hover:bg-[#5A2A3A] hover:text-pink-900 dark:hover:text-white rounded-md transition"
+                      className="block px-4 py-2 font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      role="menuitem"
                     >
-                      🎂 Dashboard
+                      Dashboard
                     </Link>
                     <button
+                      type="button"
                       onClick={() => {
-                        handleLogout();
+                        handleLogout("Anda telah logout.");
                         setShowProfileDropdown(false);
                       }}
-                      className="w-full text-left block px-4 py-2 font-semibold hover:bg-pink-300 dark:hover:bg-[#5A2A3A] hover:text-pink-900 dark:hover:text-white rounded-md transition"
+                      className="w-full text-left block px-4 py-2 font-medium hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      role="menuitem"
                     >
-                      🍰 Keluar
+                      Keluar
                     </button>
                   </div>
                 </div>
               </>
             ) : (
-              <Link to="/login" className="hidden sm:block btn py-2 px-4">
-                MASUK
+              <Link
+                to="/login"
+                className="hidden sm:inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-pink-600 text-white hover:bg-pink-700 h-9 px-4 py-2"
+              >
+                Masuk
               </Link>
             )}
           </div>
 
-          {/* Cart Icon */}
-          <Link to="/cart" className="relative">
+          <Link
+            to="/cart"
+            className="relative"
+            aria-label={`Keranjang Belanja: ${getCartCount()} item`}
+          >
             <FontAwesomeIcon
               icon={faShoppingCart}
-              className="w-5 cursor-pointer text-gray-800 dark:text-gray-300"
+              className="text-xl text-gray-800 dark:text-gray-300 hover:text-pink-700 dark:hover:text-pink-400 transition-colors"
             />
-            <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center bg-pink-500 dark:bg-pink-600 text-white aspect-square rounded-full text-[8px]">
-              {getCartCount()}
-            </p>
+            {getCartCount() > 0 && (
+              <span className="absolute -top-1 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-pink-500 dark:bg-pink-600 text-white text-[10px] font-bold">
+                {getCartCount()}
+              </span>
+            )}
           </Link>
 
-          {/* Hamburger Menu Icon */}
-          <img
+          <button
+            type="button"
+            aria-label="Buka Menu"
             onClick={() => setSidebarVisible(true)}
-            src={assets.menu_icon}
-            className="w-5 cursor-pointer sm:hidden dark:invert"
-            alt="menu icon"
-          />
+            className="sm:hidden text-xl text-gray-800 dark:text-gray-300 hover:text-pink-700 dark:hover:text-pink-400 transition-colors"
+          >
+            <MenuIcon className="w-6 h-6" />
+          </button>
         </div>
       </div>
 
-      {/* Sidebar Menu */}
+      {/* Sidebar Mobile */}
       <div
-        className={`fixed top-0 right-0 bottom-0 w-60 md:hidden glass shadow-xl transition-all duration-300 ease-in-out transform ${
+        className={`fixed inset-y-0 right-0 w-64 md:hidden bg-white/80 dark:bg-black/80 backdrop-blur-md shadow-xl transition-transform duration-300 ease-in-out transform z-[998] ${
           sidebarVisible ? "translate-x-0" : "translate-x-full"
         }`}
-        style={{ zIndex: 999 }}
       >
-        <div className="fixed inset-0 w-full h-full flex flex-col p-6 bg-white/50 dark:bg-black/50 backdrop-blur-lg z-50">
-          <div
+        <div className="flex flex-col h-full p-4">
+          <button
+            type="button"
+            aria-label="Tutup Menu"
             onClick={() => setSidebarVisible(false)}
-            className="flex items-center gap-4 p-3 cursor-pointer hover:bg-pink-200 dark:hover:bg-[#5A2A3A] rounded-lg transition-all duration-200 ease-in-out"
+            className="flex items-center self-start gap-2 p-2 mb-4 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors"
           >
-            <ChevronLeft className="h-5 w-5 stroke-[2]" />
-            <p className="font-semibold">Kembali</p>
-          </div>
+            <ChevronLeft className="h-5 w-5" />
+            <span className="font-medium">Kembali</span>
+          </button>
 
-          {/* Sidebar Links */}
-          {["/", "/collection", "/about", "/contact"].map((path, index) => (
-            <NavLink
-              key={index}
-              onClick={() => setSidebarVisible(false)}
-              className="py-4 pl-6 mb-2 border-b border-pink-300 dark:border-pink-800 hover:accent rounded-lg font-medium transition-all duration-200 ease-in-out"
-              to={path}
-            >
-              {["BERANDA", "PRODUK", "LOKASI TOKO", "KONTAK"][index]}
-            </NavLink>
-          ))}
+          <nav className="flex flex-col gap-1">
+            {navLinksData.map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  `block px-3 py-3 rounded-md font-medium transition-colors ${
+                    isActive
+                      ? "bg-pink-100 dark:bg-pink-900/50 text-pink-700 dark:text-pink-300"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  }`
+                }
+                end
+              >
+                {link.label}
+              </NavLink>
+            ))}
 
-          {!token && (
-            <Link
-              to="/login"
-              className="mt-4 py-3 pl-6 text-center border border-pink-500 dark:border-pink-400 bg-pink-500 dark:bg-pink-400 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-pink-600 dark:hover:bg-pink-500"
-              onClick={() => setSidebarVisible(false)}
-            >
-              MASUK
-            </Link>
-          )}
+            {!token && (
+              <Link
+                to="/login"
+                className="mt-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-pink-600 text-white hover:bg-pink-700 h-10 px-4 py-2"
+              >
+                Masuk
+              </Link>
+            )}
+          </nav>
         </div>
       </div>
+      {sidebarVisible && (
+        <div
+          className="fixed inset-0 bg-black/30 z-[997] md:hidden"
+          onClick={() => setSidebarVisible(false)}
+          aria-hidden="true"
+        ></div>
+      )}
     </header>
   );
+};
+
+Navbar.propTypes = {
+  darkModeProps: PropTypes.object
 };
 
 export default Navbar;
