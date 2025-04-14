@@ -1,147 +1,281 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import ProductReview from "../components/ProductReview";
-// import LatestCollection from "../components/LatestColletion";
 import RelatedProducts from "../components/RelatedProducts";
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { ShoppingBag, ChevronLeft } from "lucide-react";
 
 const Product = () => {
   const { slug } = useParams();
   const { addToCart } = useContext(AppContext);
   const [productData, setProductData] = useState(null);
-  const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("description");
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Produk";
+    document.title = "Yulita Cakes - Memuat Produk...";
   }, []);
 
   useEffect(() => {
     const fetchProductData = async () => {
+      setLoading(true);
+      setError(null);
+      setProductData(null);
       try {
         const response = await fetch(`/api/user/product/${slug}/detail`);
-        if (!response.ok) throw new Error("Produk tidak ditemukan.");
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error("Produk tidak ditemukan.");
+          }
+          let errorData;
+          try {
+            errorData = await response.json();
+          } catch (e) {
+            /* Abaikan */
+          }
+          throw new Error(errorData?.message || "Gagal memuat data produk.");
+        }
         const data = await response.json();
-        if (data.product) {
-          setProductData(data.product);
-          const imageUrls = data.product.images.map(
-            (img) => `/storage/${img.image}`
+
+        if (data.data) {
+          setProductData(data.data);
+          setSelectedImage(
+            data.data.primary_image_url ||
+              data.data.images?.[0]?.image_url ||
+              "/placeholder.jpg"
           );
-          setImages(imageUrls);
-          setSelectedImage(imageUrls[0]);
+          document.title = `Yulita Cakes - ${data.data.product_name}`;
         } else {
-          setProductData(null);
+          throw new Error("Format data produk tidak sesuai.");
         }
       } catch (error) {
         console.error("Error fetching product data:", error);
+        if (
+          error.message !== "Unauthorized" &&
+          error.message !== "User not authenticated"
+        ) {
+          setError(error.message);
+        } else {
+          setError("Anda perlu login untuk melihat produk ini.");
+        }
+        document.title = "Yulita Cakes - Error";
       } finally {
         setLoading(false);
       }
     };
-    fetchProductData();
+
+    if (slug) {
+      fetchProductData();
+    } else {
+      setError("Slug produk tidak valid.");
+      setLoading(false);
+    }
+    window.scrollTo(0, 0);
   }, [slug]);
+
+  const handleAddToCart = () => {
+    if (productData && productData.stock > 0) {
+      addToCart(productData.id, null, 1);
+    } else if (productData && productData.stock === 0) {
+      toast.warn("Maaf, stok produk ini sedang habis.", {
+        position: "bottom-center",
+      });
+    }
+  };
 
   if (loading)
     return (
-      <p className="text-center mt-20 text-pink-400 font-semibold">Memuat...</p>
-    );
-  if (!productData)
-    return (
-      <p className="text-center mt-20 text-pink-400 font-semibold">
-        Produk tidak ditemukan.
-      </p>
+      <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
+        <div className="flex flex-col items-center">
+          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mb-3"></div>
+          <p className="text-center text-lg text-gray-500 dark:text-gray-400">
+            Memuat data produk...
+          </p>
+        </div>
+      </div>
     );
 
+  if (error)
+    return (
+      <div className="flex flex-col justify-center items-center min-h-[calc(100vh-200px)] text-center px-4">
+        <p className="text-red-500 text-xl mb-4">⚠️ {error}</p>
+        <Link
+          to="/collection"
+          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+        >
+          <ChevronLeft className="mr-2 h-4 w-4" aria-hidden="true" />
+          Kembali ke Koleksi
+        </Link>
+      </div>
+    );
+
+  if (!productData)
+    return (
+      <div className="flex justify-center items-center min-h-[calc(100vh-200px)] text-center">
+        <p className="text-gray-500 dark:text-gray-400 text-xl">
+          Produk tidak tersedia.
+        </p>
+      </div>
+    );
+
+  const hasDiscount =
+    productData.sale_price !== null &&
+    productData.sale_price > 0 &&
+    Number(productData.sale_price) < Number(productData.original_price);
+  const effectivePrice = hasDiscount
+    ? productData.sale_price
+    : productData.original_price;
+  const isOutOfStock = productData.stock === 0;
+
   return (
-    // <div className="pt-24 sm:pt-36 pb-10 border-t-2">
-    <div className="section-padding">
-      <div className="max-w-6xl mx-auto px-4 pt-6">
-        <div className="flex flex-col sm:flex-row gap-4">
-          {/* Image Gallery */}
-          <div className="flex flex-col sm:flex-row gap-4 flex-1">
-            <div className="flex flex-row sm:flex-col gap-4 sm:w-1/5">
-              {images.map((item, index) => (
-                <img
-                  key={index}
-                  onClick={() => setSelectedImage(item)}
-                  src={item}
-                  alt={`Product ${index + 1}`}
-                  className="w-20 sm:w-full rounded-lg cursor-pointer border-2 border-transparent hover:border-pink-400 transition"
-                />
-              ))}
-            </div>
-            <div className="flex-1">
+    <div className="pt-24 pb-16 bg-gray-50 dark:bg-gray-950">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="mb-6">
+          <Link
+            to="/collection"
+            className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
+          >
+            <ChevronLeft className="mr-1 h-4 w-4" aria-hidden="true" />
+            Kembali ke Produk
+          </Link>
+        </div>
+
+        <motion.div
+          className="flex flex-col lg:flex-row gap-8 md:gap-12 bg-white dark:bg-gray-900 p-4 md:p-8 rounded-xl shadow-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Galeri Gambar */}
+          <div className="flex flex-col-reverse md:flex-row gap-4 lg:w-1/2 flex-shrink-0">
+            {/* Thumbnails */}
+            {productData.images && productData.images.length > 1 && (
+              <div className="flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-x-hidden md:w-20 pb-2 md:pb-0 flex-shrink-0">
+                {productData.images.map((img) => (
+                  <button
+                    key={img.id}
+                    onClick={() => setSelectedImage(img.image_url)}
+                    className={`flex-shrink-0 w-16 h-16 md:w-full md:h-auto aspect-square rounded-md cursor-pointer border-2 transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 ${
+                      selectedImage === img.image_url
+                        ? "border-pink-500"
+                        : "border-gray-200 dark:border-gray-700"
+                    }`}
+                    aria-label={`Lihat gambar ${img.id}`}
+                  >
+                    <img
+                      src={img.image_url}
+                      alt={`Thumbnail ${productData.product_name}`}
+                      className="w-full h-full object-cover rounded"
+                      loading="lazy"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+            {/* Gambar Utama */}
+            <div className="flex-1 aspect-square overflow-hidden rounded-lg shadow-inner border border-gray-200 dark:border-gray-700">
               <img
-                className="w-full rounded-lg shadow-md object-cover border"
-                src={selectedImage}
+                className="w-full h-full object-cover transition-transform duration-300 ease-in-out"
+                src={selectedImage || "/placeholder.jpg"}
                 alt={productData.product_name}
               />
             </div>
           </div>
 
-          {/* Product Details */}
-          <div className="flex-1 p-2 sm:p-6 rounded-xl">
-            <h1 className="text-2xl sm:text-4xl font-bold mb-3 dark:text-gray-300">
+          {/* Detail Produk */}
+          <div className="flex-1 lg:w-1/2">
+            <h1 className="text-3xl lg:text-4xl font-bold font-serif mb-3 text-gray-900 dark:text-gray-100">
               {productData.product_name}
             </h1>
-            <div className="flex items-center gap-3">
-              <h3 className="text-3xl font-semibold font-sans text-gray-700 dark:text-pink-500">
-                Rp.{" "}
-                {(
-                  productData.sale_price ?? productData.original_price
-                ).toLocaleString("id-ID")}
-              </h3>
-              {productData.sale_price !== null &&
-                productData.original_price !== productData.sale_price && (
-                  <p className="text-lg text-gray-500 line-through">
-                    Rp {productData.original_price.toLocaleString("id-ID")}
-                  </p>
-                )}
+            {productData.category && (
+              <Link
+                to="/collection"
+                state={{ selectedCategory: productData.category.category_name }}
+                className="text-sm text-pink-600 dark:text-pink-400 hover:underline mb-4 inline-block"
+              >
+                {productData.category.category_name}
+              </Link>
+            )}
+            <div className="flex items-center gap-3 mb-4">
+              <p className="text-3xl font-semibold font-sans text-pink-700 dark:text-pink-400">
+                Rp {Number(effectivePrice).toLocaleString("id-ID")}
+              </p>
+              {hasDiscount && (
+                <p className="text-lg text-gray-500 dark:text-gray-400 line-through">
+                  Rp{" "}
+                  {Number(productData.original_price).toLocaleString("id-ID")}
+                </p>
+              )}
             </div>
-
-            <p className="mt-2 text-gray-400 font-medium">
-              Stok: <span className="font-semibold">{productData.stock}</span>
-            </p>
-
-            <button
-              onClick={() => addToCart(productData.id.toString())}
-              className="mt-2 bg-gradient-to-r from-pink-500 to-pink-700 text-gray-50 dark:text-gray-200 px-4 py-2 rounded-full hover:bg-pink-500 transition duration-300 ease-in-out hover:shadow-md hover:scale-105 text-sm"
+            <p
+              className={`mb-5 text-sm font-medium ${
+                isOutOfStock
+                  ? "text-red-500"
+                  : "text-green-600 dark:text-green-400"
+              }`}
             >
-              Tambah ke Keranjang
+              {isOutOfStock
+                ? "Stok Habis"
+                : `Stok Tersedia: ${productData.stock}`}
+            </p>
+            {/* Tombol Add to Cart HTML */}
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              disabled={isOutOfStock || loading}
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-base font-semibold transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 ${
+                isOutOfStock
+                  ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                  : "bg-gradient-to-r from-pink-600 to-pink-700 text-white hover:from-pink-700 hover:to-pink-800"
+              }`}
+            >
+              <ShoppingBag size={20} />
+              {isOutOfStock ? "Stok Habis" : "Tambah ke Keranjang"}
             </button>
 
-            {/* Description & Reviews */}
-            <div className="mt-4 rounded-xl shadow bg-white dark:bg-gray-900 overflow-hidden">
-              <div className="flex">
+            {/* Tabs Deskripsi & Ulasan */}
+            <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
+              <div className="flex border-b border-gray-200 dark:border-gray-700 mb-4">
                 <button
-                  className={`relative px-6 py-3 text-sm font-medium flex-1 transition ${
-                    activeTab === "description"
-                      ? "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-pink-900"
-                      : ""
-                  }`}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeTab === "description"}
                   onClick={() => setActiveTab("description")}
+                  className={`relative px-5 py-3 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1 rounded-t-md ${
+                    activeTab === "description"
+                      ? "text-pink-600 dark:text-pink-400 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-pink-600 dark:after:bg-pink-400"
+                      : "text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                  }`}
                 >
                   Deskripsi
                 </button>
                 <button
-                  className={`relative px-6 py-3 text-sm font-medium flex-1 transition ${
-                    activeTab === "reviews"
-                      ? "after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-pink-900"
-                      : ""
-                  }`}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeTab === "reviews"}
                   onClick={() => setActiveTab("reviews")}
+                  className={`relative px-5 py-3 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-1 rounded-t-md ${
+                    activeTab === "reviews"
+                      ? "text-pink-600 dark:text-pink-400 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-pink-600 dark:after:bg-pink-400"
+                      : "text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                  }`}
                 >
                   Ulasan
                 </button>
               </div>
-
-              <div className="p-6">
+              <div className="p-1 text-sm text-gray-700 dark:text-gray-300 leading-relaxed min-h-[100px]">
                 {activeTab === "description" ? (
                   <div
+                    className="prose prose-sm dark:prose-invert max-w-none"
                     dangerouslySetInnerHTML={{
-                      __html: productData.description,
+                      __html:
+                        productData.description ||
+                        "<p>Deskripsi tidak tersedia.</p>",
                     }}
                   />
                 ) : (
@@ -150,9 +284,14 @@ const Product = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-      <RelatedProducts category={productData.category_id} />
+      {productData.category && (
+        <RelatedProducts
+          categoryId={productData.category.id}
+          currentProductId={productData.id}
+        />
+      )}
     </div>
   );
 };

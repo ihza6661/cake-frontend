@@ -1,47 +1,35 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 
-const RelatedProducts = ({ category, subCategory }) => {
+const RelatedProducts = ({ categoryId, currentProductId }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("Category yang diterima:", category);
+    if (!categoryId) return; 
+
     const fetchRelatedProducts = async () => {
+      setLoading(true);
+      setError(null);
+      let url = `/api/user/get_related_products?category_id=${categoryId}`;
+      if (currentProductId) {
+        url += `&product_id=${currentProductId}`;
+      }
+
       try {
-        const response = await fetch(
-          `/api/user/get_related_products?category_id=${category}`
-        );
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Gagal memuat data produk terkait");
         }
         const data = await response.json();
-        const productsWithImages = data
-          .filter((product) =>
-            product.images.some((img) => img.is_primary === 1)
-          )
-          .map((product) => {
-            const primaryImage = product.images.find(
-              (img) => img.is_primary === 1
-            );
-            return {
-              id: product.id,
-              name: product.product_name,
-              original_price: product.original_price,
-              sale_price: product.sale_price,
-              image: `/storage/${primaryImage.image}`,
-              slug: product.slug,
-              stock: product.stock,
-            };
-          });
-
-        setRelatedProducts(productsWithImages.slice(0, 4));
+        setRelatedProducts(data.data || []);
       } catch (err) {
+        console.error("Error fetching related products:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -49,7 +37,7 @@ const RelatedProducts = ({ category, subCategory }) => {
     };
 
     fetchRelatedProducts();
-  }, [category]);
+  }, [categoryId, currentProductId]);
 
   if (loading) {
     return (
@@ -65,7 +53,9 @@ const RelatedProducts = ({ category, subCategory }) => {
           }}
         >
           <div className="w-10 h-10 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-xl text-gray-500 mt-3">Memuat Produk...</p>
+          <p className="text-lg text-gray-500 dark:text-gray-400 mt-3">
+            Memuat Produk...
+          </p>
         </motion.div>
       </div>
     );
@@ -73,71 +63,68 @@ const RelatedProducts = ({ category, subCategory }) => {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center h-64 text-center">
         <motion.div
           className="flex flex-col items-center"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <motion.p
-            className="text-red-500 text-lg"
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1.1 }}
-            transition={{
-              duration: 0.5,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          >
-            ⚠️ {error}
-          </motion.p>
+          <p className="text-red-500 text-lg">⚠️ {error}</p>
         </motion.div>
       </div>
     );
   }
 
+  if (relatedProducts.length === 0) {
+    return null;
+  }
+
   return (
-    <section className="section-padding">
-      <div className="container mx-auto">
+    <section className="pt-10 pb-16 bg-gray-50 dark:bg-gray-900/50">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-6 text-center"
+          className="mb-8 text-center"
         >
           <Title text1={"Produk"} text2={"Terkait"} />
-          <p className="w-3/4 mx-auto text-sm sm:text-base font-medium">
-            Temukan berbagai pilihan kue lainnya.
+          <p className="w-full md:w-3/4 mx-auto text-sm sm:text-base text-gray-600 dark:text-gray-400">
+            Temukan berbagai pilihan kue lainnya yang mungkin Anda suka.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-4 md:gap-x-6 px-4 sm:pt-6">
-          {relatedProducts.slice(0, 4).map((item) => (
-            <div
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          {relatedProducts.map((item) => (
+            <ProductItem
               key={item.id}
-              className="group relative rounded-2xl transition-transform"
-            >
-              <ProductItem
-                id={item.id}
-                image={item.image}
-                name={item.name}
-                originalPrice={item.original_price}
-                salePrice={item.sale_price}
-                slug={item.slug}
-                stock={item.stock}
-              />
-            </div>
+              id={item.id}
+              image={item.primary_image_url || "/placeholder.jpg"}
+              name={item.product_name}
+              originalPrice={Number(item.original_price)}
+              salePrice={item.sale_price ? Number(item.sale_price) : null}
+              slug={item.slug}
+              stock={item.stock}
+              label={item.label}
+            />
           ))}
         </div>
         <div className="mt-12 text-center">
           <Link to="/collection">
-            <Button className="py-2 px-4 rounded-full">Lihat Semua Kue</Button>
+            <button className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-pink-600 text-white hover:bg-pink-700 h-10 px-6 py-2">
+              Lihat Semua Kue
+            </button>
           </Link>
         </div>
       </div>
     </section>
   );
+};
+
+RelatedProducts.propTypes = {
+  categoryId: PropTypes.number.isRequired,
+  currentProductId: PropTypes.number,
 };
 
 export default RelatedProducts;
