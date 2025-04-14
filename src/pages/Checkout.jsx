@@ -6,7 +6,7 @@ import { AppContext } from "../context/AppContext";
 import { FiArrowDown } from "react-icons/fi";
 import { Button } from "../components/ui/button";
 
-const PlaceOrder = () => {
+const Checkout = () => {
   useEffect(() => {
     document.title = "Yulita Cakes - Pembayaran";
   });
@@ -429,4 +429,4 @@ const PlaceOrder = () => {
   );
 };
 
-export default PlaceOrder;
+export default Checkout;

@@ -16,7 +16,7 @@ import Product from "./pages/Product";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
-import PlaceOrder from "./pages/PlaceOrder";
+import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
 import Dashboard from "./pages/Dashboard";
 import Addresses from "./pages/Addresses";
@@ -114,7 +114,7 @@ const App = () => {
             </GuestRoute>
           }
         />
-        <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route
           path="/dashboard"
           element={
