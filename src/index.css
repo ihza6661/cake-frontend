@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 329 79% 66%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 330 100% 98%;
+    --secondary-foreground: 327 73% 52%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 327 73% 97%;
+    --accent-foreground: 327 73% 52%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 329 79% 66%;
+    --radius: 1rem;
+
+    /* Dark mode colors */
+    --background-dark: 240 10% 3.9%;
+    --background-dark: 240 10% 3.9%;
+    --foreground-dark: 0 0% 98%;
+    --card-dark: 240 10% 3.9%;
+    --card-dark-foreground: 0 0% 98%;
+    --popover-dark: 240 10% 3.9%;
+    --popover-dark-foreground: 0 0% 98%;
+    --primary-dark: 329 79% 66%;
+    --primary-dark-foreground: 0 0% 98%;
+    --secondary-dark: 240 3.7% 15.9%;
+    --secondary-dark-foreground: 0 0% 98%;
+    --muted-dark: 240 3.7% 15.9%;
+    --muted-dark-foreground: 240 5% 64.9%;
+    --accent-dark: 240 3.7% 15.9%;
+    --accent-dark-foreground: 0 0% 98%;
+    --border-dark: 240 3.7% 15.9%;
+    --input-dark: 240 3.7% 15.9%;
+    --ring-dark: 329 79% 66%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+
+  .dark body {
+    @apply bg-background-dark text-foreground-dark;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+  }
+
+  p {
+    @apply text-gray-700 dark:text-gray-300;
+  }
+
+  li {
+    @apply text-muted-foreground leading-relaxed text-xs;
+  }
+
+  .dark li {
+    @apply text-muted-dark-foreground;
+  }
+}
+
+@layer utilities {
+  .accent {
+    @apply bg-pink-50 dark:bg-pink-900/20;
+  }
+  .bg-accent {
+    @apply bg-pink-50 dark:bg-pink-900/20;
+  }
+
+  .btn {
+    @apply rounded-full shadow-lg transition-all
+        bg-pink-500 hover:bg-pink-600 text-white 
+        dark:bg-pink-700 dark:hover:bg-pink-600 dark:text-pink-100;
+  }
+  .glass {
+    @apply backdrop-blur-md bg-white/70 dark:bg-black/40 border dark:border-white/10 border-black/5 shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .section-padding {
+    @apply py-16 px-4 sm:px-6 md:py-24 lg:px-8;
+  }
+
+  .page-transition {
+    @apply animate-fade-in motion-reduce:animate-none;
+  }
+
+  .fade-in {
+    @apply animate-fade-in motion-reduce:animate-none;
+  }
+
+  .slide-up {
+    @apply animate-slide-up motion-reduce:animate-none;
+  }
+
+  .slide-down {
+    @apply animate-slide-down motion-reduce:animate-none;
+  }
+
+  .slide-left {
+    @apply animate-slide-left motion-reduce:animate-none;
+  }
+
+  .slide-right {
+    @apply animate-slide-right motion-reduce:animate-none;
+  }
+}
+.custom-toast {
+  background-color: #ffffff !important; /* Clean white background */
+  color: #333333 !important; /* Dark gray for better readability */
+  text-transform: lowercase;
+  padding: 12px 16px; /* More padding for a balanced look */
+  border-radius: 8px; /* Smooth rounded corners */
+  font-size: 16px; /* Slightly larger text for readability */
+  font-weight: 500; /* Medium font weight */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  border: 1px solid #ddd; /* Light border for subtle contrast */
+}
+
+.custom-progress {
+  background-color: #4caf50 !important; /* Green progress bar */
+  height: 4px !important;
+  border-radius: 2px;
+}
+
+.custom-progress {
+  background-color: red !important;
+}
+
+.glow-text {
+  text-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+}
+
+h3 {
+  padding-bottom: 4px;
+}
+
+h1,
+h2 {
+  color: #910048;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(218, 0, 109, 0.789);
+  letter-spacing: 2px;
+}
+
+a.active hr {
+  display: block;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  a.active {
+    background: linear-gradient(90deg, #ffb6c1, #fff5e1);
+
+    color: black;
+  }
+}
+
+.b-pink-300 {
+  border: 1px solid #f9a8d4; /* Tailwind's pink-300 color */
+}
