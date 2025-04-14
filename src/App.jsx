@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigationType } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,32 +29,6 @@ import FeaturesSection from "./components/FeaturesSection";
 import Testimonials from "./components/Testimonials";
 import CallToAction from "./components/CallToAction";
 import { ScrollToTop } from "./components/ScrollToTop";
-
-// function ScrollToTop() {
-//   const navigationType = useNavigationType();
-
-//   useEffect(() => {
-//     if (navigationType === "POP") {
-//       const savedScroll = sessionStorage.getItem("scrollPosition");
-//       if (savedScroll) {
-//         window.scrollTo(0, parseInt(savedScroll, 10));
-//       }
-//     } else {
-//       window.scrollTo(0, 0);
-//     }
-
-//     const handleScroll = () => {
-//       sessionStorage.setItem("scrollPosition", window.scrollY);
-//     };
-
-//     window.addEventListener("scroll", handleScroll);
-//     return () => {
-//       window.removeEventListener("scroll", handleScroll);
-//     };
-//   }, [navigationType]);
-
-//   return null;
-// }
 
 const Home = () => {
   useEffect(() => {
