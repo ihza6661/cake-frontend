@@ -141,7 +141,7 @@ const Product = () => {
             className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
           >
             <ChevronLeft className="mr-1 h-4 w-4" aria-hidden="true" />
-            Kembali ke Produk
+            Kembali ke Koleksi
           </Link>
         </div>
 
@@ -151,9 +151,7 @@ const Product = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Galeri Gambar */}
           <div className="flex flex-col-reverse md:flex-row gap-4 lg:w-1/2 flex-shrink-0">
-            {/* Thumbnails */}
             {productData.images && productData.images.length > 1 && (
               <div className="flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-x-hidden md:w-20 pb-2 md:pb-0 flex-shrink-0">
                 {productData.images.map((img) => (
@@ -177,7 +175,6 @@ const Product = () => {
                 ))}
               </div>
             )}
-            {/* Gambar Utama */}
             <div className="flex-1 aspect-square overflow-hidden rounded-lg shadow-inner border border-gray-200 dark:border-gray-700">
               <img
                 className="w-full h-full object-cover transition-transform duration-300 ease-in-out"
@@ -187,7 +184,6 @@ const Product = () => {
             </div>
           </div>
 
-          {/* Detail Produk */}
           <div className="flex-1 lg:w-1/2">
             <h1 className="text-3xl lg:text-4xl font-bold font-serif mb-3 text-gray-900 dark:text-gray-100">
               {productData.product_name}
@@ -223,7 +219,6 @@ const Product = () => {
                 ? "Stok Habis"
                 : `Stok Tersedia: ${productData.stock}`}
             </p>
-            {/* Tombol Add to Cart HTML */}
             <button
               type="button"
               onClick={handleAddToCart}
@@ -238,7 +233,6 @@ const Product = () => {
               {isOutOfStock ? "Stok Habis" : "Tambah ke Keranjang"}
             </button>
 
-            {/* Tabs Deskripsi & Ulasan */}
             <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
               <div className="flex border-b border-gray-200 dark:border-gray-700 mb-4">
                 <button
