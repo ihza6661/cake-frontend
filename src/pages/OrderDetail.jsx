@@ -1,11 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { AppContext } from "../context/AppContext";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { toast } from "react-toastify";
 import html2canvas from "html2canvas";
-import { Download, Copy, Loader2, ArrowLeft } from "lucide-react";
+import { Download, Copy, Loader2, ArrowLeft, CheckCheck } from "lucide-react";
 
 const OrderDetail = () => {
   const { authFetch, currency } = useContext(AppContext);
@@ -14,6 +14,7 @@ const OrderDetail = () => {
   const [order, setOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isConfirming, setIsConfirming] = useState(false);
 
   const formatStatus = (status) => {
     switch (status) {
@@ -81,6 +82,51 @@ const OrderDetail = () => {
   useEffect(() => {
     document.title = "Yulita Cakes - Detail Pesanan";
   }, []);
+
+  const fetchOrder = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    setOrder(null);
+    try {
+      const response = await authFetch(`/api/user/orders/${orderId}`);
+      if (!response) {
+        throw new Error("Gagal menghubungi server atau masalah otentikasi.");
+      }
+      const data = await response.json();
+      if (response.ok) {
+        if (!data.data) throw new Error("Format data pesanan tidak sesuai.");
+        setOrder(data.data);
+        document.title = `Yulita Cakes - Order #${
+          data.data?.order_number || orderId
+        }`;
+      } else {
+        if (response.status === 404) {
+          throw new Error("Pesanan tidak ditemukan atau bukan milik Anda.");
+        }
+        throw new Error(data.message || "Gagal mengambil detail pesanan.");
+      }
+    } catch (error) {
+      if (error.message !== "Unauthorized" && error.message !== "Forbidden") {
+        console.error("Error fetching order detail:", error);
+        setError(
+          error.message || "Terjadi kesalahan saat mengambil detail pesanan."
+        );
+        document.title = "Yulita Cakes - Pesanan Tidak Ditemukan";
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }, [authFetch, orderId]);
+
+  useEffect(() => {
+    if (orderId && orderId !== "undefined") {
+      fetchOrder();
+    } else {
+      setError("ID Pesanan tidak valid.");
+      setIsLoading(false);
+      document.title = "Yulita Cakes - ID Pesanan Tidak Valid";
+    }
+  }, [orderId, fetchOrder]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -192,6 +238,54 @@ const OrderDetail = () => {
         });
       });
   };
+
+  const handleConfirmDelivery = useCallback(async () => {
+    if (!order || isConfirming || order.status !== "shipped") return;
+
+    if (!window.confirm("Apakah Anda yakin pesanan ini sudah Anda terima?")) {
+      return;
+    }
+
+    setIsConfirming(true);
+    try {
+      const response = await authFetch(
+        `/api/user/orders/${order.id}/confirm-delivery`,
+        {
+          method: "POST",
+          headers: { Accept: "application/json" },
+        }
+      );
+      if (!response) {
+        setIsConfirming(false);
+        return;
+      }
+
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(
+          data.message || "Pesanan berhasil dikonfirmasi diterima."
+        );
+        setOrder((prevOrder) =>
+          prevOrder
+            ? {
+                ...prevOrder,
+                status: "delivered",
+                shipment: { ...prevOrder.shipment, status: "delivered" },
+              }
+            : null
+        );
+      } else {
+        toast.error(data.message || "Gagal mengkonfirmasi pesanan.");
+      }
+    } catch (error) {
+      if (error.message !== "Unauthorized" && error.message !== "Forbidden") {
+        console.error("Error confirming delivery:", error);
+        toast.error(error.message || "Terjadi kesalahan saat konfirmasi.");
+      }
+    } finally {
+      setIsConfirming(false);
+    }
+  }, [order, authFetch, isConfirming, fetchOrder]);
 
   if (isLoading) {
     return (
@@ -538,6 +632,22 @@ const OrderDetail = () => {
                   </span>
                 </p>
               )}
+              {order.status === 'shipped' && (
+                   <div className="mt-6 md:mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+                       <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                           Apakah pesanan ini sudah Anda terima dengan baik?
+                       </p>
+                       <button
+                           type="button"
+                           onClick={handleConfirmDelivery}
+                           disabled={isConfirming}
+                           className="inline-flex items-center justify-center gap-2 px-6 py-2 rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-600 text-white hover:bg-green-700 shadow-sm dark:focus:ring-offset-gray-800 disabled:bg-green-400"
+                       >
+                            {isConfirming ? <Loader2 className="w-4 h-4 animate-spin"/> : <CheckCheck className="w-4 h-4"/>}
+                            {isConfirming ? "Memproses..." : "Konfirmasi Pesanan Diterima"}
+                       </button>
+                   </div>
+                )}
             </div>
           </div>
         )}

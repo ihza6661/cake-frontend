@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext, useCallback } from "react"; // Tambahkan useCallback
-import { AppContext } from "../context/AppContext"; // Sesuaikan path
+import { useEffect, useState, useContext, useCallback } from "react";
+import { AppContext } from "../context/AppContext";
 import { format } from "date-fns/format";
 import { id } from "date-fns/locale/id";
 import { useNavigate } from "react-router-dom";
@@ -51,23 +51,21 @@ const Orders = () => {
       }
     },
     [authFetch]
-  ); // Dependensi hanya authFetch
+  );
 
   useEffect(() => {
-    fetchOrders(1); // Fetch halaman pertama saat mount
+    fetchOrders(1);
   }, [fetchOrders]);
 
   const handlePageChange = (url) => {
     if (url) {
       try {
-        // Ekstrak nomor halaman dari URL
         const pageNumber = new URL(url).searchParams.get("page");
         if (pageNumber) {
           fetchOrders(pageNumber);
         }
       } catch (e) {
         console.error("Error parsing pagination URL:", e);
-        // Mungkin URL tidak valid, bisa coba ambil dari teks link jika perlu fallback
       }
     }
   };
