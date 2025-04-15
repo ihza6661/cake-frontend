@@ -177,7 +177,7 @@ const Orders = () => {
                       <td className="px-4 py-3 text-center">
                         <button
                           onClick={() =>
-                            navigate(`/dashboard/orders/${order.id}`)
+                            navigate(`/dashboard/pesanan/${order.id}`)
                           }
                           className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline font-medium text-xs"
                           title="Lihat Detail Pesanan"

@@ -103,7 +103,7 @@ const Checkout = () => {
         console.error("Error fetching addresses:", error);
         setAddressError(error.message);
         if (error.message.includes("belum memiliki alamat")) {
-          navigate("/dashboard/addresses");
+          navigate("/dashboard/alamat");
           toast.warn(error.message);
         } else {
           toast.error(error.message);
@@ -288,13 +288,13 @@ const Checkout = () => {
             onSuccess: function (result) {
               toast.success("Pembayaran berhasil!");
               clearCart();
-              navigate(`/dashboard/orders/${orderDatabaseId}`, {
+              navigate(`/dashboard/pesanan/${orderDatabaseId}`, {
                 state: { orderId: result.order_id, status: "success" },
               });
             },
             onPending: function (result) {
               toast.info("Pembayaran Anda sedang diproses.");
-              navigate("/dashboard/orders", {
+              navigate("/dashboard/pesanan", {
                 state: { orderId: result.order_id, status: "pending" },
               });
             },
@@ -378,7 +378,7 @@ const Checkout = () => {
                     {" "}
                     <button
                       type="button"
-                      onClick={() => navigate("/dashboard/addresses")}
+                      onClick={() => navigate("/dashboard/alamat")}
                       title="Ubah Alamat"
                       className="p-1 ..."
                     >

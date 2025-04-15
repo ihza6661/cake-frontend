@@ -1,11 +1,10 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import Title from "../components/Title";
 
 const About = () => {
   useEffect(() => {
-    document.title = "Yulita Cakes - About";
+    document.title = "Yulita Cakes - Tentang Kami";
   }, []);
 
   return (
@@ -71,50 +70,6 @@ const About = () => {
             bahan-bahan lokal saat memungkinkan, dan memastikan setiap kue
             dibuat dengan penuh perhatian dan ketelitian.
           </p>
-          <h2 className="text-3xl font-serif text-pink-600 dark:text-pink-400 mt-8 mb-6">
-            Team Kami
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="text-center">
-              <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-pink-200 dark:bg-pink-800 flex items-center justify-center">
-                <span className="text-3xl text-pink-600 dark:text-pink-400">
-                  Y
-                </span>
-              </div>
-              <h3 className="text-xl font-medium text-pink-600 dark:text-pink-400">
-                Yulita
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Pendiri & Pembuat Kue
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-pink-200 dark:bg-pink-800 flex items-center justify-center">
-                <span className="text-3xl text-pink-600 dark:text-pink-400">
-                  M
-                </span>
-              </div>
-              <h3 className="text-xl font-medium text-pink-600 dark:text-pink-400">
-                Micheal
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Koki Pastry Utama
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-pink-200 dark:bg-pink-800 flex items-center justify-center">
-                <span className="text-3xl text-pink-600 dark:text-pink-400">
-                  V
-                </span>
-              </div>
-              <h3 className="text-xl font-medium text-pink-600 dark:text-pink-400">
-                Venia
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">Desainer Kue</p>
-            </div>
-          </div>
         </div>
       </motion.div>
     </div>

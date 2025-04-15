@@ -39,7 +39,7 @@ const ProductItem = ({
     e.preventDefault();
     e.stopPropagation();
     if (slug) {
-      navigate(`/product/${slug}`);
+      navigate(`/kue/${slug}`);
     }
   };
 
@@ -132,9 +132,9 @@ const ProductItem = ({
 
   return (
     <Link
-      to={`/product/${slug}`}
+      to={`/kue/${slug}`}
       className="block w-full h-full"
-      aria-label={`Lihat produk ${name}`}
+      aria-label={`Lihat kue ${name}`}
     >
       {productContent}
     </Link>

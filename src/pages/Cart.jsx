@@ -74,7 +74,7 @@ const Cart = () => {
       <div className="container mx-auto px-4">
         <div className="mb-6">
           <Link
-            to="/collection"
+            to="/kue"
             className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors font-medium"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -101,7 +101,7 @@ const Cart = () => {
             <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md mx-auto">
               Sepertinya Anda belum menambahkan kue apa pun.
             </p>
-            <Link to="/collection">
+            <Link to="/kue">
               <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-pink-600 text-white hover:bg-pink-700 h-10 px-5 py-2">
                 <ShoppingBag className="w-4 h-4 mr-2" />
                 Cari Kue Sekarang
@@ -145,7 +145,7 @@ const Cart = () => {
                       >
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                           <Link
-                            to={`/product/${item.product?.slug}`}
+                            to={`/kue/${item.product?.slug}`}
                             className="flex-shrink-0"
                           >
                             <img
@@ -159,7 +159,7 @@ const Cart = () => {
                             />
                           </Link>
                           <div className="flex-grow min-w-0">
-                            <Link to={`/product/${item.product?.slug}`}>
+                            <Link to={`/kue/${item.product?.slug}`}>
                               <p className="text-base font-medium text-gray-900 dark:text-white truncate hover:text-pink-600 dark:hover:text-pink-400">
                                 {item.product?.product_name ||
                                   "Nama Produk Error"}

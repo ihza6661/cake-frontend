@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import Categories from "../components/Categories";
-import LatestColletion from "../components/LatestColletion";
+import LatestProduct from "../components/LatestProduct";
 import Hero from "../components/Hero";
-import FeaturesSection from "../components/FeaturesSection";
 import Testimonials from "../components/Testimonials";
 import CallToAction from "../components/CallToAction";
 
@@ -14,9 +13,8 @@ const Home = () => {
   return (
     <div className="page-transition">
       <Hero />
-      <LatestColletion />
+      <LatestProduct />
       <Categories />
-      <FeaturesSection />
       <Testimonials />
       <CallToAction />
     </div>

@@ -8,9 +8,9 @@ const Dashboard = () => {
   }, []);
 
   const tabs = [
-    { name: "Orderan Saya", path: "orders" },
-    { name: "Alamat", path: "addresses" },
-    { name: "Detail Akun", path: "account" },
+    { name: "Orderan Saya", path: "pesanan" },
+    { name: "Alamat", path: "alamat" },
+    { name: "Detail Akun", path: "akun" },
   ];
 
   return (

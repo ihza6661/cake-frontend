@@ -9,9 +9,9 @@ import DarkModeToggle from "./ui/DarkModeToggle";
 
 const navLinksData = [
   { path: "/", label: "Beranda" },
-  { path: "/collection", label: "Produk" },
-  { path: "/about", label: "Tentang Kami" },
-  { path: "/contact", label: "Kontak" },
+  { path: "/kue", label: "Kue" },
+  { path: "/tentang", label: "Tentang Kami" },
+  { path: "/kontak", label: "Kontak" },
 ];
 
 const Navbar = () => {
@@ -148,7 +148,7 @@ const Navbar = () => {
           </div>
 
           <Link
-            to="/cart"
+            to="/keranjang"
             className="relative"
             aria-label={`Keranjang Belanja: ${getCartCount()} item`}
           >

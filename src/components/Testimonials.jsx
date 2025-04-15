@@ -57,7 +57,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section className="py-16 md:py-24 bg-white dark:bg-gray-950">
+    <section className="py-16 md:py-24 bg-pink-50 dark:bg-gray-950">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

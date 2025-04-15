@@ -6,10 +6,10 @@ import Footer from "./components/layout/Footer";
 import SearchBar from "./components/SearchBar";
 import PrivateRoute from "./components/Route/PrivateRoute";
 import GuestRoute from "./components/Route/GuestRoute";
-import Collection from "./pages/Collection";
+import Product from "./pages/Product";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Product from "./pages/Product";
+import ProductDetail from "./pages/ProductDetail";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
@@ -48,11 +48,11 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/collection" element={<Collection />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/product/:slug" element={<Product />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/kue" element={<Product />} />
+        <Route path="/tentang" element={<About />} />
+        <Route path="/kontak" element={<Contact />} />
+        <Route path="/kue/:slug" element={<ProductDetail />} />
+        <Route path="/keranjang" element={<Cart />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -74,10 +74,10 @@ const App = () => {
             </PrivateRoute>
           }
         >
-          <Route path="orders" element={<Orders />} />
-          <Route path="orders/:id" element={<OrderDetail />} />
-          <Route path="addresses" element={<Addresses />} />
-          <Route path="account" element={<AccountDetails />} />
+          <Route path="pesanan" element={<Orders />} />
+          <Route path="pesanan/:id" element={<OrderDetail />} />
+          <Route path="alamat" element={<Addresses />} />
+          <Route path="akun" element={<AccountDetails />} />
         </Route>
       </Routes>
 

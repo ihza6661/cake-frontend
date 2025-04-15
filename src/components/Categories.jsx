@@ -65,7 +65,7 @@ const Categories = () => {
                 key={category.id}
                 className="cursor-pointer group relative flex flex-col items-center bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 dark:border-gray-700"
                 onClick={() =>
-                  navigate("/collection", {
+                  navigate("/kue", {
                     state: { selectedCategory: category.category_name },
                   })
                 }

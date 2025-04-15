@@ -308,7 +308,7 @@ const OrderDetail = () => {
           <span className="block sm:inline ml-1">{error}</span>
         </div>
         <Link
-          to="/dashboard/orders"
+          to="/dashboard/pesanan"
           className="mt-6 inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-800"
         >
           <ArrowLeft className="mr-2 h-4 w-4" /> Kembali ke Daftar Pesanan
@@ -330,7 +330,7 @@ const OrderDetail = () => {
           </span>
         </div>
         <Link
-          to="/dashboard/orders"
+          to="/dashboard/pesanan"
           className="mt-6 inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-800"
         >
           <ArrowLeft className="mr-2 h-4 w-4" /> Kembali ke Daftar Pesanan
@@ -352,7 +352,7 @@ const OrderDetail = () => {
       {" "}
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 md:mb-8">
         <Link
-          to="/dashboard/orders"
+          to="/dashboard/pesanan"
           className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors font-medium group"
         >
           <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />{" "}
