@@ -1,6 +1,5 @@
-import React from "react";
 import Title from "../components/Title";
-import { Phone, Mail, MapPin, Instagram } from "lucide-react";
+import { Phone, Mail, Instagram } from "lucide-react";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 const locations = [

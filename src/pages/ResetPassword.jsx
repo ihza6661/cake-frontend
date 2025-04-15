@@ -20,7 +20,7 @@ const ResetPassword = () => {
     document.title = "Yulita Cakes - Reset Password";
     if (!token || !email) {
       toast.error("Link reset password tidak valid atau tidak lengkap.");
-      navigate("/login");
+      navigate("/masuk");
     }
   }, [token, email, navigate]);
 
@@ -77,7 +77,7 @@ const ResetPassword = () => {
 
       if (response.ok) {
         toast.success(data.message || "Password berhasil direset.");
-        navigate("/login", { state: { resetSuccess: true } });
+        navigate("/masuk", { state: { resetSuccess: true } });
       } else if (response.status === 422) {
         setErrors(
           data.errors || {
@@ -204,7 +204,7 @@ const ResetPassword = () => {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Ingat password Anda?{" "}
             <Link
-              to="/login"
+              to="/masuk"
               className="text-pink-600 dark:text-pink-400 hover:underline font-semibold"
             >
               Login

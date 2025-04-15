@@ -1,4 +1,5 @@
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -23,9 +24,11 @@ const HeroSection = () => {
             Nikmati kelezatan kue terbaik yang dibuat dengan cinta dan bahan
             segar, cocok untuk setiap momen spesial.
           </p>
-          <Button className="font-semibold rounded-full" size="lg">
-            Pesan Sekarang
-          </Button>
+          <Link to="/kue">
+            <Button className="font-semibold rounded-full" size="lg">
+              Pesan Sekarang
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

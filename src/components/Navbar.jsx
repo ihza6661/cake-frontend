@@ -139,7 +139,7 @@ const Navbar = () => {
               </>
             ) : (
               <Link
-                to="/login"
+                to="/masuk"
                 className="hidden sm:inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-pink-600 text-white hover:bg-pink-700 h-9 px-4 py-2"
               >
                 Masuk
@@ -211,7 +211,7 @@ const Navbar = () => {
 
             {!token && (
               <Link
-                to="/login"
+                to="/masuk"
                 className="mt-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-pink-600 text-white hover:bg-pink-700 h-10 px-4 py-2"
               >
                 Masuk

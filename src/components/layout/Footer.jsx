@@ -127,7 +127,7 @@ const Footer = () => {
             {/* Ganti '#' dengan link asli */}
             <div className="flex space-x-4 mb-4">
               <a
-                href="https://www.instagram.com/yulita.cakes/"
+                href="https://www.instagram.com/cakesyulita"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram Yulita Cakes"
@@ -136,14 +136,14 @@ const Footer = () => {
                 <Instagram size={20} />
               </a>
               <a
-                href="mailto:contoh@yulitacakes.com"
+                href="mailto:cakesyulita57@gmail.com"
                 aria-label="Email Yulita Cakes"
                 className="text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 transition-colors"
               >
                 <Mail size={20} />
               </a>
               <a
-                href="https://wa.me/6281234567890"
+                href="https://wa.me/6289603324917"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Whatsapp Yulita Cakes"

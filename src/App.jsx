@@ -53,10 +53,10 @@ const App = () => {
         <Route path="/kue/:slug" element={<ProductDetail />} />
         <Route path="/keranjang" element={<Cart />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/lupa-password" element={<ForgotPassword />} />
 
         <Route
-          path="/login"
+          path="/masuk"
           element={
             <GuestRoute>
               <Login />

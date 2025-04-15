@@ -52,8 +52,8 @@ const AppProvider = ({ children }) => {
       } finally {
         updateToken(null);
         setCartItems([]);
-        if (location.pathname !== "/login") {
-          navigate("/login");
+        if (location.pathname !== "/masuk") {
+          navigate("/masuk");
         }
         toast.info(
           logoutMessage || "Sesi Anda telah berakhir. Silakan login kembali."

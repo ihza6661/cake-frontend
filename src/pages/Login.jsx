@@ -227,24 +227,13 @@ const AuthForm = () => {
           {isLogin && (
             <p className="text-sm">
               <Link
-                to="/forgot-password"
+                to="/lupa-password"
                 className="text-pink-600 dark:text-pink-400 hover:underline"
               >
                 Lupa Password?
               </Link>
             </p>
           )}
-          <div className="text-xs text-center text-gray-500 dark:text-gray-400 pt-2">
-            Dengan melanjutkan, Anda menyetujui{" "}
-            <Link to="/terms" className="underline hover:text-pink-500">
-              Syarat Layanan
-            </Link>{" "}
-            &{" "}
-            <Link to="/privacy" className="underline hover:text-pink-500">
-              Kebijakan Privasi
-            </Link>
-            .
-          </div>
         </CardFooter>
       </Card>
     </div>

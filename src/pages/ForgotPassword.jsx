@@ -134,7 +134,7 @@ const ForgotPassword = () => {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Kembali ke{" "}
             <Link
-              to="/login"
+              to="/masuk"
               className="text-pink-600 dark:text-pink-400 hover:underline font-semibold"
             >
               Halaman Login
