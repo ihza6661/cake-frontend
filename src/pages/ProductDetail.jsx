@@ -105,7 +105,7 @@ const ProductDetail = () => {
       <div className="flex flex-col justify-center items-center min-h-[calc(100vh-200px)] text-center px-4">
         <p className="text-red-500 text-xl mb-4">⚠️ {error}</p>
         <Link
-          to="/collection"
+          to="/kue"
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-pink-600 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
         >
           <ChevronLeft className="mr-2 h-4 w-4" aria-hidden="true" />
@@ -137,7 +137,7 @@ const ProductDetail = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="mb-6">
           <Link
-            to="/collection"
+            to="/kue"
             className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
           >
             <ChevronLeft className="mr-1 h-4 w-4" aria-hidden="true" />
@@ -190,7 +190,7 @@ const ProductDetail = () => {
             </h1>
             {productData.category && (
               <Link
-                to="/collection"
+                to="/kue"
                 state={{ selectedCategory: productData.category.category_name }}
                 className="text-sm text-pink-600 dark:text-pink-400 hover:underline mb-4 inline-block"
               >

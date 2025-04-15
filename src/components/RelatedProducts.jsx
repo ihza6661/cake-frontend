@@ -111,7 +111,7 @@ const RelatedProducts = ({ categoryId, currentProductId }) => {
           ))}
         </div>
         <div className="mt-12 text-center">
-          <Link to="/collection">
+          <Link to="/kue">
             <button className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-pink-600 text-white hover:bg-pink-700 h-10 px-6 py-2">
               Lihat Semua Kue
             </button>

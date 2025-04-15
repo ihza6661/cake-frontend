@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const CallToAction = () => {
   return (
@@ -20,13 +21,16 @@ const CallToAction = () => {
               acara spesial Anda.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/collection" size="lg">
-                Belanja Sekarang
-              </Button>
-
-              <Button href="/contact" size="lg" variant="secondary">
-                Kontak Kami
-              </Button>
+              <Link to="/kue">
+                <Button size="lg">
+                  Belanja Sekarang
+                </Button>
+              </Link>
+              <Link to="/kontak">
+                <Button size="lg" variant="secondary">
+                  Kontak Kami
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>

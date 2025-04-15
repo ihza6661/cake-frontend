@@ -19,7 +19,6 @@ import Dashboard from "./pages/Dashboard";
 import Addresses from "./pages/Addresses";
 import AccountDetails from "./pages/AccountDetail";
 import OrderDetail from "./pages/OrderDetail";
-import PaymentSuccess from "./pages/PaymentSucces";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import { ScrollToTop } from "./components/ScrollToTop";
@@ -53,7 +52,6 @@ const App = () => {
         <Route path="/kontak" element={<Contact />} />
         <Route path="/kue/:slug" element={<ProductDetail />} />
         <Route path="/keranjang" element={<Cart />} />
-        <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
