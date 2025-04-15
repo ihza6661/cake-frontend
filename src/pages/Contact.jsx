@@ -79,7 +79,7 @@ const Contact = () => {
               href="https://wa.me/6289603324917"
               className="mt-4 px-6 py-3 bg-gradient-to-r from-pink-500 to-pink-700 text-white rounded-full shadow-lg hover:scale-105 transition-all duration-300"
             >
-              Chat via WhatsApp
+              Pesan via WhatsApp
             </a>
           </div>
         </div>
