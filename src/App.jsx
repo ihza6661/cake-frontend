@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar";
@@ -7,10 +6,8 @@ import Footer from "./components/layout/Footer";
 import SearchBar from "./components/SearchBar";
 import PrivateRoute from "./components/Route/PrivateRoute";
 import GuestRoute from "./components/Route/GuestRoute";
-import Categories from "./components/Categories";
-import LatestColletion from "./components/LatestColletion";
-import Hero from "./components/Hero";
 import Collection from "./pages/Collection";
+import Home from "./pages/Home";
 import About from "./pages/About";
 import Product from "./pages/Product";
 import Contact from "./pages/Contact";
@@ -25,27 +22,7 @@ import OrderDetail from "./pages/OrderDetail";
 import PaymentSuccess from "./pages/PaymentSucces";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
-import FeaturesSection from "./components/FeaturesSection";
-import Testimonials from "./components/Testimonials";
-import CallToAction from "./components/CallToAction";
 import { ScrollToTop } from "./components/ScrollToTop";
-
-const Home = () => {
-  useEffect(() => {
-    document.title = "Yulita Cakes";
-  }, []);
-
-  return (
-    <div className="page-transition">
-      <Hero />
-      <LatestColletion />
-      <Categories />
-      <FeaturesSection />
-      <Testimonials />
-      <CallToAction />
-    </div>
-  );
-};
 
 const App = () => {
   return (
