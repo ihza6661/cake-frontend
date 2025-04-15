@@ -10,6 +10,11 @@ const CartTotal = ({ shippingCost = 0, includeItemList = false }) => {
     const price = item.product ? Number(item.product.effective_price) || 0 : 0;
     return sum + price * item.qty;
   }, 0);
+  
+  const weightTotal = cartItems.reduce((sum, item) => {
+    const weight = item.product ? Number(item.product.weight) || 0 : 0;
+    return sum + weight * item.qty;
+  }, 0);
 
   const deliveryFee = Number(shippingCost) || 0;
   const total = subtotal + deliveryFee;
@@ -54,6 +59,10 @@ const CartTotal = ({ shippingCost = 0, includeItemList = false }) => {
         <div className="flex justify-between text-gray-700 dark:text-gray-300">
           <p>Subtotal</p>
           <p className="font-medium">{formatCurrency(subtotal)}</p>
+        </div>
+        <div className="flex justify-between text-gray-700 dark:text-gray-300">
+          <p>Total Berat</p>
+          <p className="font-medium">{weightTotal} GRAM</p>
         </div>
 
         <div className="flex justify-between text-gray-700 dark:text-gray-300">

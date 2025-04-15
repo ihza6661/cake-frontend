@@ -195,6 +195,18 @@ const AppProvider = ({ children }) => {
     }
   }, [token, fetchCartItems, resetInactivityTimer]);
 
+  const formatCurrency = useCallback(
+    (amount) => {
+      // Pastikan amount adalah number, default ke 0 jika tidak valid
+      const numberAmount = Number(amount) || 0;
+      return (
+        currency +
+        numberAmount.toLocaleString("id-ID", { minimumFractionDigits: 0 })
+      );
+    },
+    [currency]
+  ); // Dependensi hanya currency
+
   const addToCart = useCallback(
     async (itemId, size, quantity = 1) => {
       const currentToken = sessionStorage.getItem("token");
@@ -350,6 +362,7 @@ const AppProvider = ({ children }) => {
     navigate,
     handleLogout,
     authFetch,
+    formatCurrency,
     API_BASE_URL,
   };
 
