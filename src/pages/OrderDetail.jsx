@@ -531,7 +531,7 @@ const OrderDetail = () => {
                         <Link
                           to={
                             item.product
-                              ? `/products/${item.product.slug}`
+                              ? `/kue/${item.product.slug}`
                               : "#"
                           }
                           className="hover:text-pink-600 dark:hover:text-pink-400"
