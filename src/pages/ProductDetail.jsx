@@ -37,6 +37,8 @@ const ProductDetail = () => {
             errorData = await response.json();
           } catch (e) {
             /* Abaikan */
+            console.log("Error parsing error response:", e);
+            
           }
           throw new Error(errorData?.message || "Gagal memuat data produk.");
         }
@@ -153,12 +155,12 @@ const ProductDetail = () => {
         >
           <div className="flex flex-col-reverse md:flex-row gap-4 lg:w-1/2 flex-shrink-0">
             {productData.images && productData.images.length > 1 && (
-              <div className="flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-x-hidden md:w-20 pb-2 md:pb-0 flex-shrink-0">
+              <div className="flex flex-row md:flex-col gap-3 overflow-x-auto md:overflow-x-hidden md:w-20 p-2 md:pb-0 flex-shrink-0">
                 {productData.images.map((img) => (
                   <button
                     key={img.id}
                     onClick={() => setSelectedImage(img.image_url)}
-                    className={`flex-shrink-0 w-16 h-16 md:w-full md:h-auto aspect-square rounded-md cursor-pointer border-2 transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 ${
+                    className={` image-contain p-1 flex-shrink-0 w-16 h-16 md:w-full md:h-auto aspect-square rounded-md cursor-pointer border-2 transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 ${
                       selectedImage === img.image_url
                         ? "border-pink-500"
                         : "border-gray-200 dark:border-gray-700"
@@ -168,7 +170,7 @@ const ProductDetail = () => {
                     <img
                       src={img.image_url}
                       alt={`Thumbnail ${productData.product_name}`}
-                      className="w-full h-full object-cover rounded"
+                      className="w-full h-full object-cover rounded-md"
                       loading="lazy"
                     />
                   </button>

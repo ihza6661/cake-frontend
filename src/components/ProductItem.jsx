@@ -47,6 +47,7 @@ const ProductItem = ({
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.5 }}
       className="group relative bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-full border border-transparent dark:border-gray-800"
     >

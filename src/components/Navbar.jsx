@@ -45,11 +45,12 @@ const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "py-3 sm:py-3 shadow-md bg-gray-100/80 dark:bg-black/60 backdrop-blur-lg"
-          : "py-4 sm:py-4 bg-gray-100/50 dark:bg-black/50"
-      }`}
+    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled
+        ? "py-3 shadow-sm bg-white/80 dark:bg-black/70 lg:py-3 lg:shadow-md lg:bg-gray-100/80 lg:dark:bg-black/60 lg:backdrop-blur-lg md:backdrop-blur-lg"
+        : "py-4 bg-white/60 dark:bg-black/50 lg:py-4 lg:bg-gray-100/50 lg:dark:bg-black/50"
+    }`}
+    
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link
@@ -154,7 +155,7 @@ const Navbar = () => {
           >
             <FontAwesomeIcon
               icon={faShoppingCart}
-              className="text-xl text-gray-800 dark:text-gray-300 hover:text-pink-700 dark:hover:text-pink-400 transition-colors"
+              className="text-xl mt-1 text-gray-800 dark:text-gray-300 hover:text-pink-700 dark:hover:text-pink-400 transition-colors"
             />
             {getCartCount() > 0 && (
               <span className="absolute -top-1 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-pink-500 dark:bg-pink-600 text-white text-[10px] font-bold">
@@ -176,10 +177,11 @@ const Navbar = () => {
 
       {/* Sidebar Mobile */}
       <div
-        className={`fixed inset-y-0 right-0 w-64 md:hidden bg-white/80 dark:bg-black/80 backdrop-blur-md shadow-xl transition-transform duration-300 ease-in-out transform z-[998] ${
-          sidebarVisible ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
+  className={`fixed inset-y-0 right-0 w-64 md:hidden bg-white dark:bg-black shadow-xl transition-transform duration-300 ease-in-out transform z-[998] ${
+    sidebarVisible ? "translate-x-0" : "translate-x-full"
+  }`}
+>
+
         <div className="flex flex-col h-full p-4">
           <button
             type="button"

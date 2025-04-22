@@ -20,7 +20,7 @@ const Dashboard = () => {
       <div className="w-full max-w-6xl flex flex-col md:flex-row md:gap-12 lg:gap-16 items-start justify-center mx-auto p-4">
         {/* Sidebar Navigation */}
         <div className="w-full md:w-1/4 lg:w-1/5">
-          <nav className="bg-pink-50 dark:bg-gray-900 shadow-lg rounded-2xl p-5 mb-5">
+          <nav className=" shadow-sm rounded-2xl p-5 mb-5">
             <ul className="space-y-4">
               {tabs.map((tab) => (
                 <li key={tab.path}>

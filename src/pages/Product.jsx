@@ -192,7 +192,7 @@ const Product = () => {
                   transition: { duration: 0.3 },
                 },
               }}
-              className={`bg-gray-50 dark:bg-gray-800/50 p-5 rounded-lg shadow-sm ${
+              className={`bg-gray-50 dark:bg-gray-900/70 p-5 rounded-lg shadow-sm ${
                 showFilterSidebar ? "block" : "hidden md:block"
               }`}
             >
@@ -265,7 +265,7 @@ const Product = () => {
                         ?.category_name || "Koleksi"
                     : "Semua"
                 }
-                text2={"Kue"}
+                text2={"Kue 🍰"}
               />
               {paginationMeta && paginationMeta.total > 0 && (
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -278,7 +278,8 @@ const Product = () => {
             <select
               value={sortType}
               onChange={handleSortChange}
-              className="text-sm px-3 py-2 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-sm focus:outline-none focus:ring-1 focus:ring-pink-500 dark:text-gray-300"
+              className="text-sm px-2 py-2 w-48 h-10 rounded-md 
+            bg-accent dark:bg-gray-900 shadow-md"
               aria-label="Urutkan produk"
             >
               <option value="created_at-desc">Terbaru</option>

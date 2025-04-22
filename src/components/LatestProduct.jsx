@@ -71,7 +71,7 @@ const LatestProduct = () => {
   }
 
   return (
-    <section className="py-16 bg-pink-50 dark:bg-gray-800/50">
+    <section className="py-16 bg-pink-50 dark:bg-black">
       <motion.div
         className="container mx-auto px-4 text-center"
         initial={{ opacity: 0, y: 20 }}

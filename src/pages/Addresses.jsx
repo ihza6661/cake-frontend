@@ -282,7 +282,7 @@ const Addresses = () => {
   );
 
   return (
-    <div className="p-4 md:p-6 bg-gray-50 dark:bg-gray-900 rounded-lg shadow-sm min-h-[300px]">
+    <div className="p-4 md:p-6 bg-white dark:bg-gray-900 rounded-lg shadow-sm min-h-[300px]">
       <h3 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
         Alamat Pengiriman Saya
       </h3>
