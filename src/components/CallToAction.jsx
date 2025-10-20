@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { Phone, Instagram } from "lucide-react";
+import { Phone } from "lucide-react";
 
 
 const CallToAction = () => {
@@ -30,7 +30,7 @@ const CallToAction = () => {
               </Link>
               <Link to="https://wa.me/6289603324917" target="_blank">
                 <Button size="lg" variant="secondary">
-                <Phone size={22} className="text-black" />
+                  <Phone size={22} className="dark:text-white" />
                   Kontak Kami
                 </Button>
               </Link>

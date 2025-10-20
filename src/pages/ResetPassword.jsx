@@ -17,7 +17,7 @@ const ResetPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Reset Password";
+    document.title = "Brownies Squishy - Reset Password";
     if (!token || !email) {
       toast.error("Link reset password tidak valid atau tidak lengkap.");
       navigate("/masuk");

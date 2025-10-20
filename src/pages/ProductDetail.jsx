@@ -17,7 +17,7 @@ const ProductDetail = () => {
   const [activeTab, setActiveTab] = useState("description");
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Memuat Produk...";
+    document.title = "Brownies Squishy - Memuat Produk...";
   }, []);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const ProductDetail = () => {
               data.data.images?.[0]?.image_url ||
               "/placeholder.jpg"
           );
-          document.title = `Yulita Cakes - ${data.data.product_name}`;
+          document.title = `Brownies Squishy - ${data.data.product_name}`;
         } else {
           throw new Error("Format data produk tidak sesuai.");
         }
@@ -65,7 +65,7 @@ const ProductDetail = () => {
         } else {
           setError("Anda perlu login untuk melihat produk ini.");
         }
-        document.title = "Yulita Cakes - Error";
+        document.title = "Brownies Squishy - Error";
       } finally {
         setLoading(false);
       }

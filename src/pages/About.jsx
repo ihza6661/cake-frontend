@@ -4,7 +4,7 @@ import Title from "../components/Title";
 
 const About = () => {
   useEffect(() => {
-    document.title = "Yulita Cakes - Tentang Kami";
+    document.title = "Brownies Squishy - Tentang Kami";
   }, []);
 
   return (
@@ -16,7 +16,7 @@ const About = () => {
         className="max-w-4xl mx-auto"
       >
         <div className="prose prose-pink dark:prose-invert lg:prose-lg max-w-none pt-10">
-          <Title text1="Yulita" text2="Cakes" />
+          <Title text1="Brownies" text2="Squishy" />
           <p className="text-xl text-gray-700 dark:text-gray-300 mb-6">
             Telah membuat kue dan Roti sejak 2010. Apa yang awalnya dimulai
             sebagai hobi keluarga kecil kini telah berkembang menjadi toko roti
@@ -52,7 +52,7 @@ const About = () => {
             Kisah Kami
           </h2>
           <p className="mb-4">
-            Yulita Cakes bermula dari dapur pendirinya, Yulita. Apa yang awalnya
+            Brownies Squishy bermula dari dapur pendirinya, Yulita. Apa yang awalnya
             hanya berupa kegiatan memanggang untuk teman dan keluarga segera
             berkembang ketika kabar tentang kelezatan kuenya menyebar. Dalam
             waktu satu tahun, Yulita membuka toko roti kecil pertama kami.

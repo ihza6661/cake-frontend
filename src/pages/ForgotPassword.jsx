@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   useEffect(() => {
-    document.title = "Yulita Cakes - Lupa Password";
+    document.title = "Brownies Squishy - Lupa Password";
   }, []);
 
   const [email, setEmail] = useState("");

@@ -14,7 +14,7 @@ import {
 
 const Cart = () => {
   useEffect(() => {
-    document.title = "Yulita Cakes - Keranjang";
+    document.title = "Brownies Squishy - Keranjang";
   }, []);
 
   const { cartItems, updateQuantity, removeFromCart, clearCart, currency } =

@@ -45,7 +45,7 @@ const Footer = () => {
               <img
                 className="w-36 py-0 px-6 mb-4  md:max-w-[200px] bg-pink-50 dark:bg-gray-300 rounded-3xl shadow-sm"
                 src="/white.png"
-                alt="Yulita Cakes Logo"
+                alt="Brownies Squishy Logo"
               />
               {" "}
             </Link>
@@ -130,14 +130,14 @@ const Footer = () => {
                 href="https://www.instagram.com/cakesyulita"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram Yulita Cakes"
+                aria-label="Instagram Brownies Squishy"
                 className="text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 transition-colors"
               >
                 <Instagram size={20} />
               </a>
               <a
                 href="mailto:cakesyulita57@gmail.com"
-                aria-label="Email Yulita Cakes"
+                aria-label="Email Brownies Squishy"
                 className="text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 transition-colors"
               >
                 <Mail size={20} />
@@ -146,7 +146,7 @@ const Footer = () => {
                 href="https://wa.me/6289603324917"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Whatsapp Yulita Cakes"
+                aria-label="Whatsapp Brownies Squishy"
                 className="text-gray-500 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-500 transition-colors"
               >
                 <svg
@@ -167,7 +167,7 @@ const Footer = () => {
 
         <div className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-700 text-center text-xs text-gray-500 dark:text-gray-400">
           <p>
-            © {new Date().getFullYear()} Yulita Cakes Pontianak. All rights
+            © {new Date().getFullYear()} Brownies Squishy Pontianak. All rights
             reserved.
           </p>
         </div>

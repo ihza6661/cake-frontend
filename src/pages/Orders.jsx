@@ -15,7 +15,7 @@ const Orders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Pesanan Saya";
+    document.title = "Brownies Squishy - Pesanan Saya";
   }, []);
 
   const fetchOrders = useCallback(

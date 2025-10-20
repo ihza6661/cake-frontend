@@ -31,7 +31,7 @@ const Addresses = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Alamat Saya";
+    document.title = "Brownies Squishy - Alamat Saya";
   }, []);
 
   const fetchAddresses = useCallback(async () => {

@@ -24,7 +24,7 @@ const Product = () => {
   const [showFilterSidebar, setShowFilterSidebar] = useState(false);
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Koleksi Kue";
+    document.title = "Brownies Squishy - Koleksi Kue";
   }, []);
 
   useEffect(() => {

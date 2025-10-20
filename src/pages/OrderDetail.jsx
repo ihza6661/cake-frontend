@@ -80,7 +80,7 @@ const OrderDetail = () => {
   };
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Detail Pesanan";
+    document.title = "Brownies Squishy - Detail Pesanan";
   }, []);
 
   const fetchOrder = useCallback(async () => {
@@ -96,7 +96,7 @@ const OrderDetail = () => {
       if (response.ok) {
         if (!data.data) throw new Error("Format data pesanan tidak sesuai.");
         setOrder(data.data);
-        document.title = `Yulita Cakes - Order #${
+        document.title = `Brownies Squishy - Order #${
           data.data?.order_number || orderId
         }`;
       } else {
@@ -111,7 +111,7 @@ const OrderDetail = () => {
         setError(
           error.message || "Terjadi kesalahan saat mengambil detail pesanan."
         );
-        document.title = "Yulita Cakes - Pesanan Tidak Ditemukan";
+        document.title = "Brownies Squishy - Pesanan Tidak Ditemukan";
       }
     } finally {
       setIsLoading(false);
@@ -124,7 +124,7 @@ const OrderDetail = () => {
     } else {
       setError("ID Pesanan tidak valid.");
       setIsLoading(false);
-      document.title = "Yulita Cakes - ID Pesanan Tidak Valid";
+      document.title = "Brownies Squishy - ID Pesanan Tidak Valid";
     }
   }, [orderId, fetchOrder]);
 
@@ -143,13 +143,13 @@ const OrderDetail = () => {
         const data = await response.json();
         if (response.ok) {
           setOrder(data.data);
-          document.title = `Yulita Cakes - Order #${
+          document.title = `Brownies Squishy - Order #${
             data.data?.order_number || orderId
           }`;
         } else {
           if (response.status === 404) {
             setError("Pesanan tidak ditemukan atau Anda tidak memiliki akses.");
-            document.title = "Yulita Cakes - Pesanan Tidak Ditemukan";
+            document.title = "Brownies Squishy - Pesanan Tidak Ditemukan";
           } else {
             setError(data.message || "Gagal mengambil detail pesanan.");
           }
@@ -160,7 +160,7 @@ const OrderDetail = () => {
           setError(
             error.message || "Terjadi kesalahan saat mengambil detail pesanan."
           );
-          document.title = "Yulita Cakes - Error";
+          document.title = "Brownies Squishy - Error";
         } else {
           setError("Anda tidak memiliki izin untuk melihat pesanan ini.");
         }
@@ -174,7 +174,7 @@ const OrderDetail = () => {
     } else {
       setError("ID Pesanan tidak valid.");
       setIsLoading(false);
-      document.title = "Yulita Cakes - ID Pesanan Tidak Valid";
+      document.title = "Brownies Squishy - ID Pesanan Tidak Valid";
     }
   }, [authFetch, orderId, navigate]);
 
@@ -375,7 +375,7 @@ const OrderDetail = () => {
           {" "}
           <div className="text-center mb-6 md:mb-10 border-b border-gray-200 dark:border-gray-700 pb-4">
             <h2 className="text-2xl sm:text-3xl font-bold font-serif text-pink-700 dark:text-pink-400 mb-1">
-              Yulita Cakes
+              Brownies Squishy
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Nota Pesanan

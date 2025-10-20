@@ -16,7 +16,7 @@ const AccountDetails = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Informasi Akun";
+    document.title = "Brownies Squishy - Informasi Akun";
   }, []);
 
   useEffect(() => {

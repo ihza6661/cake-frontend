@@ -1,18 +1,18 @@
 import Title from "../components/Title";
-import { Phone, Mail, Instagram } from "lucide-react";
+import * as lucideReact from "lucide-react";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 const locations = [
   {
-    city: "Kubu Raya",
-    // location: "Kubu Raya ",
+    city: "Pontianak",
+    // location: "Swignyo Raya ",
     // direction: "12 km"
   },
 ];
 
 const Contact = () => {
   useEffect(() => {
-    document.title = "Yulita Cakes - Kontak";
+    document.title = "Brownies Squishy - Kontak";
   }, []);
 
   return (
@@ -52,20 +52,20 @@ const Contact = () => {
                 href="https://wa.me/6289603324917"
                 className="flex items-center gap-2 hover:text-pink-800 transition"
               >
-                <Phone size={22} className="text-pink-500" /> +62 896 0332 4917
+                <lucideReact.Phone size={22} className="text-pink-500" /> +62 896 0332 4917
               </a>
               <a
-                href="https://www.instagram.com/cakesyulita"
+                href="https://www.instagram.com/browniessquishy/"
                 className="flex items-center gap-2 hover:text-pink-800 transition"
               >
-                <Instagram size={22} className="text-pink-500" /> @cakesyulita
+                <lucideReact.Instagram size={22} className="text-pink-500" /> @browniessquishy
               </a>
               <a
                 href="mailto:cakesyulita57@gmail.com"
                 className="flex items-center gap-2 hover:text-pink-800 transition"
               >
-                <Mail size={22} className="text-pink-500" />{" "}
-                cakesyulita57@gmail.com
+                <lucideReact.Mail size={22} className="text-pink-500" />{" "}
+                browniessquishy@gmail.com
               </a>
             </div>
             <h3 className="font-semibold text-2xl sm:text-3xl text-pink-900 dark:text-pink-500 tracking-wide">
@@ -110,18 +110,15 @@ const Contact = () => {
               key={index}
               className="rounded-2xl shadow-lg p-6 bg-pink-50 dark:bg-gray-900"
             >
-              <Title text1="Kabupaten" text2={city} />
+              <Title text1="Kota" text2={city} />
               <p className="text-gray-800 text-base">
-                Jl. Raya Desa Kapur. Gg. Prona No. 07, Kalimantan Barat
+                Jl. Swignyo. Gg. Prona No. 07, Kalimantan Barat
               </p>
             </div>
           ))}
         </div>
       </div>
     </div>
-
-    // </div>
-    // </div>
   );
 };
 

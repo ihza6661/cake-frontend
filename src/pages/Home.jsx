@@ -7,7 +7,7 @@ import CallToAction from "../components/CallToAction";
 
 const Home = () => {
   useEffect(() => {
-    document.title = "Yulita Cakes";
+    document.title = "Brownies Squishy";
   }, []);
 
   return (

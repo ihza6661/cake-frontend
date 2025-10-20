@@ -31,7 +31,7 @@ const Checkout = () => {
   const [selectedShippingOption, setSelectedShippingOption] = useState(null);
 
   useEffect(() => {
-    document.title = "Yulita Cakes - Checkout";
+    document.title = "Brownies Squishy - Checkout";
   }, []);
 
   useEffect(() => {

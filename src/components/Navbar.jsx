@@ -45,20 +45,19 @@ const Navbar = () => {
 
   return (
     <header
-    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
         ? "py-3 shadow-sm bg-white/80 dark:bg-black/70 lg:py-3 lg:shadow-md lg:bg-gray-100/80 lg:dark:bg-black/60 lg:backdrop-blur-lg md:backdrop-blur-lg"
         : "py-4 bg-white/60 dark:bg-black/50 lg:py-4 lg:bg-gray-100/50 lg:dark:bg-black/50"
-    }`}
-    
+        }`}
+
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link
           to="/"
           className="text-xl sm:text-2xl font-serif font-bold"
-          aria-label="Beranda Yulita Cakes"
+          aria-label="Beranda Brownies Squishy"
         >
-          <h2 className="dark:text-gray-200 text-gray-900">Yulita Cakes</h2>
+          <h2 className="dark:text-gray-200 text-gray-900">Brownies Squishy</h2>
         </Link>
 
         <nav className="hidden sm:flex items-center gap-6 text-lg">
@@ -72,16 +71,14 @@ const Navbar = () => {
               {({ isActive }) => (
                 <>
                   <span
-                    className={`text-gray-800 hover:text-pink-700 dark:text-gray-300 dark:hover:text-pink-400 transition-colors duration-200 ease-in-out font-medium text-base whitespace-nowrap ${
-                      isActive ? "text-pink-700 dark:text-pink-400" : ""
-                    }`}
+                    className={`text-gray-800 hover:text-pink-700 dark:text-gray-300 dark:hover:text-pink-400 transition-colors duration-200 ease-in-out font-medium text-base whitespace-nowrap ${isActive ? "text-pink-700 dark:text-pink-400" : ""
+                      }`}
                   >
                     {link.label}
                   </span>
                   <span
-                    className={`absolute bottom-0 left-0 w-full h-[2px] bg-pink-700 dark:bg-pink-400 transition-transform duration-300 ease-in-out transform scale-x-0 group-hover:scale-x-100 origin-center ${
-                      isActive ? "scale-x-100" : ""
-                    }`}
+                    className={`absolute bottom-0 left-0 w-full h-[2px] bg-pink-700 dark:bg-pink-400 transition-transform duration-300 ease-in-out transform scale-x-0 group-hover:scale-x-100 origin-center ${isActive ? "scale-x-100" : ""
+                      }`}
                   />
                 </>
               )}
@@ -104,11 +101,10 @@ const Navbar = () => {
                   <FontAwesomeIcon icon={faUser} />
                 </button>
                 <div
-                  className={`absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-150 ease-out transform origin-top-right z-50 ${
-                    showProfileDropdown
-                      ? "opacity-100 scale-100"
-                      : "opacity-0 scale-95 pointer-events-none"
-                  }`}
+                  className={`absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-150 ease-out transform origin-top-right z-50 ${showProfileDropdown
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-95 pointer-events-none"
+                    }`}
                 >
                   <div
                     className="py-1 text-sm text-gray-700 dark:text-gray-200"
@@ -177,10 +173,9 @@ const Navbar = () => {
 
       {/* Sidebar Mobile */}
       <div
-  className={`fixed inset-y-0 right-0 w-64 md:hidden bg-white dark:bg-black shadow-xl transition-transform duration-300 ease-in-out transform z-[998] ${
-    sidebarVisible ? "translate-x-0" : "translate-x-full"
-  }`}
->
+        className={`fixed inset-y-0 right-0 w-64 md:hidden bg-white dark:bg-black shadow-xl transition-transform duration-300 ease-in-out transform z-[998] ${sidebarVisible ? "translate-x-0" : "translate-x-full"
+          }`}
+      >
 
         <div className="flex flex-col h-full p-4">
           <button
@@ -199,10 +194,9 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `block px-3 py-3 rounded-md font-medium transition-colors ${
-                    isActive
-                      ? "bg-pink-100 dark:bg-pink-900/50 text-pink-700 dark:text-pink-300"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  `block px-3 py-3 rounded-md font-medium transition-colors ${isActive
+                    ? "bg-pink-100 dark:bg-pink-900/50 text-pink-700 dark:text-pink-300"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`
                 }
                 end

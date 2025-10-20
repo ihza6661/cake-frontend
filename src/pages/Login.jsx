@@ -29,7 +29,7 @@ const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    document.title = `Yulita Cakes - ${isLogin ? "Masuk" : "Daftar"}`;
+    document.title = `Brownies Squishy - ${isLogin ? "Masuk" : "Daftar"}`;
   }, [isLogin]);
 
   const handleChange = (e) => {

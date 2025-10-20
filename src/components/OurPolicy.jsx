@@ -20,7 +20,7 @@ const OurPolicy = () => {
         Kebijakan Kami
       </h2>
       <p className="text-gray-700 leading-relaxed mb-4">
-        Di Yulita Cakes, kami berkomitmen untuk menyajikan kue segar dan
+        Di Brownies Squishy, kami berkomitmen untuk menyajikan kue segar dan
         berkualitas tinggi dengan layanan terbaik. Harap tinjau kebijakan kami
         sebelum melakukan pemesanan.
       </p>
@@ -54,7 +54,7 @@ const OurPolicy = () => {
       />
 
       <p className="text-gray-800 mt-6 font-medium text-center">
-        Terima kasih telah memilih Yulita Cakes! 🍰 Kami siap melayani Anda.
+        Terima kasih telah memilih Brownies Squishy! 🍰 Kami siap melayani Anda.
       </p>
     </div>
   );

@@ -4,7 +4,7 @@ import Title from "../components/Title";
 
 const Dashboard = () => {
   useEffect(() => {
-    document.title = " Yulita Cakes - Dashboard";
+    document.title = " Brownies Squishy - Dashboard";
   }, []);
 
   const tabs = [
