@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useCallback } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 import { toast } from "react-toastify";
 import { Plus, Edit3, Trash2, CheckCircle, Star, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -180,7 +180,7 @@ const Addresses = () => {
           let data = {};
           try {
             data = await response.json();
-          } catch (e) {
+          } catch {
             /* abaikan */
           }
           throw new Error(data.message || "Gagal menghapus alamat.");

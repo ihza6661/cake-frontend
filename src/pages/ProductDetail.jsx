@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 import ProductReview from "../components/ProductReview";
 import RelatedProducts from "../components/RelatedProducts";
 import { toast } from "react-toastify";
@@ -182,6 +182,7 @@ const ProductDetail = () => {
                 className="w-full h-full object-cover transition-transform duration-300 ease-in-out"
                 src={selectedImage || "/placeholder.jpg"}
                 alt={productData.product_name}
+                loading="lazy"
               />
             </div>
           </div>

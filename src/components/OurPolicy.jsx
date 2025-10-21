@@ -1,4 +1,4 @@
-import React from "react";
+
 
 const PolicySection = ({ title, content }) => (
   <section className="mt-6">

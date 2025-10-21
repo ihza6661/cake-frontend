@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useCallback } from "react";
 import PropTypes from "prop-types";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 import { toast } from "react-toastify";
 import Title from "./Title";
 import { format } from "date-fns";

@@ -1,10 +1,10 @@
 import { useContext, useState, useRef, useEffect } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { ChevronLeft, Menu as MenuIcon } from "lucide-react";
-import { AppContext } from "../context/AppContext";
+import { ChevronLeft, Menu as MenuIcon, Search } from "lucide-react";
+import { AppContext } from "../context/AppContextObject";
 import DarkModeToggle from "./ui/DarkModeToggle";
 
 const navLinksData = [
@@ -17,8 +17,9 @@ const navLinksData = [
 const Navbar = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const { getCartCount, token, handleLogout } = useContext(AppContext);
+  const { getCartCount, token, handleLogout, setShowSearch } = useContext(AppContext);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const profileRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -55,7 +56,8 @@ const Navbar = () => {
         <Link
           to="/"
           className="text-xl sm:text-2xl font-serif font-bold"
-          aria-label="Beranda Brownies Squishy"
+          aria-label="Beranda Brownies Squishy"
+
         >
           <h2 className="dark:text-gray-200 text-gray-900">Brownies Squishy</h2>
         </Link>
@@ -88,6 +90,18 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4 md:gap-5">
           <DarkModeToggle />
+
+          <button
+            type="button"
+            aria-label="Buka Pencarian"
+            onClick={() => {
+              navigate("/kue");
+              setShowSearch(true);
+            }}
+            className="text-xl text-gray-800 dark:text-gray-300 hover:text-pink-700 dark:hover:text-pink-400 transition-colors"
+          >
+            <Search className="w-5 h-5" />
+          </button>
 
           <div className="relative flex items-center" ref={profileRef}>
             {token ? (

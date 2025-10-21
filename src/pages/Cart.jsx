@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -43,7 +43,7 @@ const Cart = () => {
       setIsClearingCart(true);
       try {
         await clearCart();
-      } catch (error) {
+      } catch {
         // Tangani error
       } finally {
         setIsClearingCart(false);

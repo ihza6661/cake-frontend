@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, useCallback } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { toast } from "react-toastify";
@@ -63,7 +63,7 @@ const Checkout = () => {
       if (snapScriptElement && document.body.contains(snapScriptElement)) {
         try {
           document.body.removeChild(snapScriptElement);
-        } catch (e) {
+        } catch {
           /* abaikan */
         }
       }
@@ -159,7 +159,7 @@ const Checkout = () => {
         let errorData = {};
         try {
           errorData = await response.json();
-        } catch (e) {
+        } catch {
           /* Abaikan jika parse gagal */
         }
         throw new Error(
@@ -435,6 +435,7 @@ const Checkout = () => {
                           }
                           alt={item.product?.product_name}
                           className="w-14 h-14 ..."
+                          loading="lazy"
                         />
                         <div className="flex-grow min-w-0">
                           <p className="font-medium ...">

@@ -1,9 +1,8 @@
-import { createContext, useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
-
-export const AppContext = createContext();
+import { AppContext } from "./AppContextObject";
 
 const AppProvider = ({ children }) => {
   const [token, setToken] = useState(
@@ -254,7 +253,7 @@ const AppProvider = ({ children }) => {
           let data = {};
           try {
             data = await response.json();
-          } catch (e) {
+          } catch {
             /* Abaikan */
           }
           if (response.status !== 401 && response.status !== 403) {
@@ -315,7 +314,7 @@ const AppProvider = ({ children }) => {
         let data = {};
         try {
           data = await response.json();
-        } catch (e) {
+        } catch {
           /* Abaikan */
         }
         if (response.status !== 401 && response.status !== 403) {

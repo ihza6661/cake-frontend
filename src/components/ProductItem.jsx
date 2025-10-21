@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 import { toast } from "react-toastify";
 
 const ProductItem = ({

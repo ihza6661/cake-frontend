@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import PropTypes from "prop-types";
 import Title from "./Title";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 
 const CartTotal = ({ shippingCost = 0, includeItemList = false }) => {
   const { currency, cartItems } = useContext(AppContext);

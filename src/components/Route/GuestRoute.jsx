@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AppContext } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContextObject';
 
 const GuestRoute = ({ children }) => {
   const { token } = useContext(AppContext);

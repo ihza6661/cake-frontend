@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useCallback } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -10,6 +10,7 @@ import { Download, Copy, Loader2, ArrowLeft, CheckCheck } from "lucide-react";
 const OrderDetail = () => {
   const { authFetch, currency } = useContext(AppContext);
   const { id: orderId } = useParams();
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
   const [order, setOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -80,7 +81,7 @@ const OrderDetail = () => {
   };
 
   useEffect(() => {
-    document.title = "Brownies Squishy - Detail Pesanan";
+
   }, []);
 
   const fetchOrder = useCallback(async () => {
@@ -96,9 +97,7 @@ const OrderDetail = () => {
       if (response.ok) {
         if (!data.data) throw new Error("Format data pesanan tidak sesuai.");
         setOrder(data.data);
-        document.title = `Brownies Squishy - Order #${
-          data.data?.order_number || orderId
-        }`;
+        document.title = `Brownies Squishy - Order #${data.data?.order_number || orderId}`;
       } else {
         if (response.status === 404) {
           throw new Error("Pesanan tidak ditemukan atau bukan milik Anda.");
@@ -111,7 +110,7 @@ const OrderDetail = () => {
         setError(
           error.message || "Terjadi kesalahan saat mengambil detail pesanan."
         );
-        document.title = "Brownies Squishy - Pesanan Tidak Ditemukan";
+
       }
     } finally {
       setIsLoading(false);
@@ -124,59 +123,11 @@ const OrderDetail = () => {
     } else {
       setError("ID Pesanan tidak valid.");
       setIsLoading(false);
-      document.title = "Brownies Squishy - ID Pesanan Tidak Valid";
+
     }
   }, [orderId, fetchOrder]);
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      setIsLoading(true);
-      setError(null);
-      setOrder(null);
-      try {
-        const response = await authFetch(`/api/user/orders/${orderId}`);
-        if (!response) {
-          setError("Gagal menghubungi server atau masalah otentikasi.");
-          setIsLoading(false);
-          return;
-        }
-        const data = await response.json();
-        if (response.ok) {
-          setOrder(data.data);
-          document.title = `Brownies Squishy - Order #${
-            data.data?.order_number || orderId
-          }`;
-        } else {
-          if (response.status === 404) {
-            setError("Pesanan tidak ditemukan atau Anda tidak memiliki akses.");
-            document.title = "Brownies Squishy - Pesanan Tidak Ditemukan";
-          } else {
-            setError(data.message || "Gagal mengambil detail pesanan.");
-          }
-        }
-      } catch (error) {
-        if (error.message !== "Unauthorized" && error.message !== "Forbidden") {
-          console.error("Error fetching order detail:", error);
-          setError(
-            error.message || "Terjadi kesalahan saat mengambil detail pesanan."
-          );
-          document.title = "Brownies Squishy - Error";
-        } else {
-          setError("Anda tidak memiliki izin untuk melihat pesanan ini.");
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
-    if (orderId && orderId !== "undefined") {
-      fetchOrder();
-    } else {
-      setError("ID Pesanan tidak valid.");
-      setIsLoading(false);
-      document.title = "Brownies Squishy - ID Pesanan Tidak Valid";
-    }
-  }, [authFetch, orderId, navigate]);
 
   const formatCurrency = (amount) => {
     return (
@@ -285,8 +236,7 @@ const OrderDetail = () => {
     } finally {
       setIsConfirming(false);
     }
-  }, [order, authFetch, isConfirming, fetchOrder]);
-
+      }, [order, authFetch, isConfirming]);
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
@@ -375,7 +325,7 @@ const OrderDetail = () => {
           {" "}
           <div className="text-center mb-6 md:mb-10 border-b border-gray-200 dark:border-gray-700 pb-4">
             <h2 className="text-2xl sm:text-3xl font-bold font-serif text-pink-700 dark:text-pink-400 mb-1">
-              Brownies Squishy
+
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Nota Pesanan

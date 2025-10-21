@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import ProductItem from "../components/ProductItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../context/AppContextObject";
 import { motion } from "framer-motion";
 
 const Product = () => {
@@ -24,7 +24,7 @@ const Product = () => {
   const [showFilterSidebar, setShowFilterSidebar] = useState(false);
 
   useEffect(() => {
-    document.title = "Brownies Squishy - Koleksi Kue";
+    document.title = "Brownies Squishy - Koleksi Kue";
   }, []);
 
   useEffect(() => {
