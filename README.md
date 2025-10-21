@@ -1,6 +1,6 @@
 # Cake - Frontend
 
-This is the frontend for Yulita Cake, a modern e-commerce web application built with React. It provides a seamless user experience for browsing, purchasing, and managing cake orders.
+This is the frontend for Cake, a modern e-commerce web application built with React. It provides a seamless user experience for browsing, purchasing, and managing cake orders.
 
 ## Features
 
