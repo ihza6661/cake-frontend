@@ -125,6 +125,7 @@ const AppProvider = ({ children }) => {
         return;
       }
       const data = await response.json();
+      console.log("fetchCartItems API response data:", data);
       if (response.ok) {
         if (Array.isArray(data.data)) {
           setCartItems(data.data);
