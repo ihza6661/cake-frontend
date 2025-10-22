@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import { AppContext } from "../context/AppContextObject";
+import { AppContext } from "@/context/AppContextObject";
 import ProductReview from "../components/ProductReview";
 import RelatedProducts from "../components/RelatedProducts";
 import { toast } from "react-toastify";

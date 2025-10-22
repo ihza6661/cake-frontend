@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useCallback } from "react";
-import { AppContext } from "../context/AppContextObject";
+import { AppContext } from "@/context/AppContextObject";
 import { toast } from "react-toastify";
 import { Plus, Edit3, Trash2, CheckCircle, Star, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";

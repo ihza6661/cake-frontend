@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Instagram, Mail } from "lucide-react";
-import { AppContext } from "../context/AppContextObject";
+import { AppContext } from "@/context/AppContextObject";
 
 const Footer = () => {
   const [categories, setCategories] = useState([]);

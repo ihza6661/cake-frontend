@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useCallback } from "react";
-import { AppContext } from "../context/AppContextObject";
+import { AppContext } from "@/context/AppContextObject";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
