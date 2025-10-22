@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AppContext } from "@/context/AppContextObject";
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "https://api.ocs.efolabessy.app/api").replace(/\/+$/, "");
+const API_BASE_URL = "https://api.ocs.efolabessy.app/api";
 
 const AppProvider = ({ children }) => {
   const [token, setToken] = useState(
