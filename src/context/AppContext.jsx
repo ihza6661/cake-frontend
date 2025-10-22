@@ -138,13 +138,11 @@ const AppProvider = ({ children }) => {
         if (response.status !== 401 && response.status !== 403) {
           toast.error(data?.message || "Gagal mengambil data keranjang");
         }
-        setCartItems([]);
       }
     } catch (error) {
       if (error.message !== "Unauthorized" && error.message !== "Forbidden") {
         console.error("Error fetching cart items (catch):", error.message);
       }
-      setCartItems([]);
     } finally {
       setCartLoading(false);
     }
