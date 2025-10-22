@@ -51,7 +51,6 @@ const AppProvider = ({ children }) => {
         console.error("Error saat API logout:", error);
       } finally {
         updateToken(null);
-        setCartItems([]);
         if (location.pathname !== "/masuk") {
           navigate("/masuk");
         }
@@ -188,7 +187,6 @@ const AppProvider = ({ children }) => {
           clearTimeout(inactivityTimerRef.current);
       };
     } else {
-      setCartItems([]);
       setCartLoading(false);
       if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
       isLoggedOutRef.current = false;
