@@ -16,7 +16,7 @@ const AppProvider = ({ children }) => {
   const currency = "Rp. ";
   const navigate = useNavigate();
   const location = useLocation();
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://api.ocs.efolabessy.app/";
+import { API_BASE_URL } from "../config";
   const INACTIVITY_TIMEOUT = 15 * 60 * 1000;
   const inactivityTimerRef = useRef(null);
   const isLoggedOutRef = useRef(false);
