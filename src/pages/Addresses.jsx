@@ -113,8 +113,8 @@ const Addresses = () => {
 
     try {
       const url = editingAddressId
-        ? `/api/user/addresses/${editingAddressId}`
-        : "/api/user/addresses";
+        ? `/user/addresses/${editingAddressId}`
+        : "/user/addresses";
       const method = editingAddressId ? "PUT" : "POST";
       const response = await authFetch(url, {
         method,
@@ -165,7 +165,7 @@ const Addresses = () => {
     if (window.confirm("Apakah Anda yakin ingin menghapus alamat ini?")) {
       setIsSubmitting(true);
       try {
-        const response = await authFetch(`/api/user/addresses/${id}`, {
+        const response = await authFetch(`/user/addresses/${id}`, {
           method: "DELETE",
         });
         if (!response) {
@@ -202,7 +202,7 @@ const Addresses = () => {
     setIsSubmitting(true);
     try {
       const response = await authFetch(
-        `/api/user/addresses/${id}/set-default`,
+        `/user/addresses/${id}/set-default`,
         { method: "PATCH", headers: { Accept: "application/json" } }
       );
       if (!response) {
