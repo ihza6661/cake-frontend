@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import { Star, MessageSquareQuote, Info, Loader2 } from "lucide-react";
+import { AppContext } from "../context/AppContextObject";
 
 const RenderStars = ({ rating }) => {
   const totalStars = 5;
@@ -30,6 +31,7 @@ const RenderStars = ({ rating }) => {
 RenderStars.propTypes = { rating: PropTypes.number };
 
 const Testimonials = () => {
+  const { API_BASE_URL } = useContext(AppContext);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,7 +42,7 @@ const Testimonials = () => {
       setError(null);
       setTestimonials([]);
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/reviews/featured?limit=3`);
+        const response = await fetch(`${API_BASE_URL}/api/user/reviews/featured?limit=3`);
         if (!response.ok) {
           throw new Error(`Gagal memuat testimoni (${response.status})`);
         }

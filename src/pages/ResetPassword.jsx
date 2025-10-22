@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AppContext } from "../context/AppContextObject";
 
 const ResetPassword = () => {
+  const { API_BASE_URL } = useContext(AppContext);
   const navigate = useNavigate();
   const { search } = useLocation();
   const query = new URLSearchParams(search);
@@ -59,7 +61,7 @@ const ResetPassword = () => {
     setErrors({});
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/password/reset`, {
+      const response = await fetch(`${API_BASE_URL}/api/password/reset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

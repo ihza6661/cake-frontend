@@ -18,7 +18,7 @@ import {
 import { motion } from "framer-motion";
 
 const ProductReview = ({ productId }) => {
-  const { authFetch, token } = useContext(AppContext);
+  const { authFetch, token, API_BASE_URL } = useContext(AppContext);
   const [currentUser, setCurrentUser] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [reviewLoading, setReviewLoading] = useState(true);
@@ -73,7 +73,7 @@ const ProductReview = ({ productId }) => {
       setReviewError(null);
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/user/products/${productId}/reviews?page=${page}`
+          `${API_BASE_URL}/api/user/products/${productId}/reviews?page=${page}`
         );
         if (!response.ok) {
           throw new Error(`Gagal memuat ulasan (${response.status})`);

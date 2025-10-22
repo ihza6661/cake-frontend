@@ -8,7 +8,7 @@ import { AppContext } from "../context/AppContextObject";
 import { motion } from "framer-motion";
 
 const Product = () => {
-  const { search } = useContext(AppContext);
+  const { search, API_BASE_URL } = useContext(AppContext);
   const location = useLocation();
 
   const [products, setProducts] = useState([]);
@@ -42,7 +42,7 @@ const Product = () => {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/get_categories`);
+      const response = await fetch(`${API_BASE_URL}/api/user/get_categories`);
       if (!response.ok) throw new Error("Gagal memuat kategori");
       const data = await response.json();
       setCategories(data.data || []);
@@ -72,7 +72,7 @@ const Product = () => {
         }
 
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/user/get_products?${params.toString()}`
+          `${API_BASE_URL}/api/user/get_products?${params.toString()}`
         );
         if (!response.ok) {
           throw new Error("Gagal memuat data produk");

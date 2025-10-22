@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { AppContext } from "../context/AppContextObject";
 
 const RelatedProducts = ({ categoryId, currentProductId }) => {
+  const { API_BASE_URL } = useContext(AppContext);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +18,7 @@ const RelatedProducts = ({ categoryId, currentProductId }) => {
     const fetchRelatedProducts = async () => {
       setLoading(true);
       setError(null);
-      let url = `${import.meta.env.VITE_API_URL}/api/user/get_related_products?category_id=${categoryId}`;
+      let url = `${API_BASE_URL}/api/user/get_related_products?category_id=${categoryId}`;
       if (currentProductId) {
         url += `&product_id=${currentProductId}`;
       }

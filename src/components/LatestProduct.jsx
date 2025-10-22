@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { AppContext } from "../context/AppContextObject";
 
 const LatestProduct = () => {
+  const { API_BASE_URL } = useContext(AppContext);
   const [latestProducts, setLatestProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,7 +16,7 @@ const LatestProduct = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/get_latest_products`);
+        const response = await fetch(`${API_BASE_URL}/api/user/get_latest_products`);
         if (!response.ok) {
           throw new Error("Gagal memuat data produk terbaru");
         }

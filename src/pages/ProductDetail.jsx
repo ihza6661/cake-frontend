@@ -9,7 +9,7 @@ import { ShoppingBag, ChevronLeft } from "lucide-react";
 
 const ProductDetail = () => {
   const { slug } = useParams();
-  const { addToCart } = useContext(AppContext);
+  const { addToCart, API_BASE_URL } = useContext(AppContext);
   const [productData, setProductData] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,7 @@ const ProductDetail = () => {
       setError(null);
       setProductData(null);
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/product/${slug}/detail`);
+        const response = await fetch(`${API_BASE_URL}/api/user/product/${slug}/detail`);
 
         if (!response.ok) {
           if (response.status === 404) {
