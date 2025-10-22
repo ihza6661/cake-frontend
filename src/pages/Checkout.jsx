@@ -75,7 +75,7 @@ const Checkout = () => {
     setAddressError(null);
     setDefaultAddress(null);
     try {
-      const response = await authFetch("/api/user/addresses");
+      const response = await authFetch("/user/addresses");
       if (!response) {
         throw new Error("Gagal fetch alamat: Respon tidak valid.");
       }
@@ -139,7 +139,7 @@ const Checkout = () => {
     const weightToSend = totalWeight < 1 ? 1 : totalWeight;
 
     try {
-      const response = await authFetch(`/api/calculate-shipping-cost`, {
+      const response = await authFetch(`/calculate-shipping-cost`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -255,7 +255,7 @@ const Checkout = () => {
             cost: selectedShippingOption.cost,
           },
         };
-        const response = await authFetch("/api/midtrans/snap-token", {
+        const response = await authFetch("/midtrans/snap-token", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -23,7 +23,7 @@ const Orders = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await authFetch(`/api/user/orders?page=${page}`);
+        const response = await authFetch(`/user/orders?page=${page}`);
         if (!response) {
           setIsLoading(false);
           return;

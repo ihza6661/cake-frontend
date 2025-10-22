@@ -24,7 +24,7 @@ const AccountDetails = () => {
       setIsLoading(true);
       setErrors({});
       try {
-        const response = await authFetch("/api/user");
+        const response = await authFetch("/user");
         if (!response) {
           setIsLoading(false);
           return;
@@ -112,7 +112,7 @@ const AccountDetails = () => {
         updateData.password_confirmation = userData.password_confirmation;
       }
 
-      const response = await authFetch("/api/user/update", {
+      const response = await authFetch("/user/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -38,7 +38,7 @@ const Addresses = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await authFetch("/api/user/addresses");
+      const response = await authFetch("/user/addresses");
       if (!response) {
         setIsLoading(false);
         return;

@@ -48,7 +48,7 @@ const ProductReview = ({ productId }) => {
       return;
     }
     try {
-      const response = await authFetch("/api/user");
+      const response = await authFetch("/user");
       if (!response) {
         setCurrentUser(null);
         return;
@@ -107,7 +107,7 @@ const ProductReview = ({ productId }) => {
     setEligibilityReason(null);
     try {
       const response = await authFetch(
-        `/api/user/products/${productId}/review-eligibility`
+        `/user/products/${productId}/review-eligibility`
       );
       if (!response) {
         setEligibilityLoading(false);
@@ -156,7 +156,7 @@ const ProductReview = ({ productId }) => {
     setIsSubmitting(true);
     try {
       const response = await authFetch(
-        `/api/user/products/${productId}/reviews`,
+        `/user/products/${productId}/reviews`,
         {
           method: "POST",
           headers: {
@@ -218,7 +218,7 @@ const ProductReview = ({ productId }) => {
     if (!editingReviewId) return;
     setIsUpdating(true);
     try {
-      const response = await authFetch(`/api/user/reviews/${editingReviewId}`, {
+      const response = await authFetch(`/user/reviews/${editingReviewId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -258,7 +258,7 @@ const ProductReview = ({ productId }) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus review ini?")) {
       setIsDeleting(reviewId);
       try {
-        const response = await authFetch(`/api/user/reviews/${reviewId}`, {
+        const response = await authFetch(`/user/reviews/${reviewId}`, {
           method: "DELETE",
         });
         if (!response) {

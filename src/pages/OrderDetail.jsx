@@ -89,7 +89,7 @@ const OrderDetail = () => {
     setError(null);
     setOrder(null);
     try {
-      const response = await authFetch(`/api/user/orders/${orderId}`);
+      const response = await authFetch(`/user/orders/${orderId}`);
       if (!response) {
         throw new Error("Gagal menghubungi server atau masalah otentikasi.");
       }
@@ -200,7 +200,7 @@ const OrderDetail = () => {
     setIsConfirming(true);
     try {
       const response = await authFetch(
-        `/api/user/orders/${order.id}/confirm-delivery`,
+        `/user/orders/${order.id}/confirm-delivery`,
         {
           method: "POST",
           headers: { Accept: "application/json" },
