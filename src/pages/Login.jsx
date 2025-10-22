@@ -74,8 +74,8 @@ const AuthForm = () => {
     setErrors({});
 
     const endpoint = isLogin
-      ? `${API_BASE_URL}/user/login`
-      : `${API_BASE_URL}/user/register`;
+      ? `${API_BASE_URL}/api/user/login`
+      : `${API_BASE_URL}/api/user/register`;
     const payload = isLogin
       ? { email: formData.email, password: formData.password }
       : formData;
