@@ -14,7 +14,7 @@ const LatestProduct = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("/api/user/get_latest_products");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/get_latest_products`);
         if (!response.ok) {
           throw new Error("Gagal memuat data produk terbaru");
         }
