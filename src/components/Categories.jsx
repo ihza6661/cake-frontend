@@ -1,11 +1,10 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import Title from "./Title";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AppContext } from "../context/AppContextObject";
 
 const Categories = () => {
-  const { API_BASE_URL } = useContext(AppContext);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +15,7 @@ const Categories = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${API_BASE_URL}/api/user/get_categories`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/get_categories`);
         if (!response.ok) {
           throw new Error("Gagal memuat data kategori");
         }

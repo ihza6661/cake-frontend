@@ -2,13 +2,12 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
-import { AppContext } from "./AppContextObject.jsx";
-import { API_BASE_URL } from "../config";
+import { AppContext } from "./AppContextObject";
 
 const AppProvider = ({ children }) => {
   const [token, setToken] = useState(
     () => sessionStorage.getItem("token") || null
-  );
+  );
   const [cartItems, setCartItems] = useState([]);
   const [cartLoading, setCartLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -17,6 +16,7 @@ const AppProvider = ({ children }) => {
   const currency = "Rp. ";
   const navigate = useNavigate();
   const location = useLocation();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://api.ocs.efolabessy.app/";
   const INACTIVITY_TIMEOUT = 15 * 60 * 1000;
   const inactivityTimerRef = useRef(null);
   const isLoggedOutRef = useRef(false);

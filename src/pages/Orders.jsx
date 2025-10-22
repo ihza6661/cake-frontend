@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useCallback } from "react";
-import { AppContext } from "../context/AppContextObject.jsx";
+import { AppContext } from "../context/AppContextObject";
 import { format } from "date-fns/format";
 import { id } from "date-fns/locale/id";
 import { useNavigate } from "react-router-dom";

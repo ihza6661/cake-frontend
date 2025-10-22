@@ -1,10 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Instagram, Mail } from "lucide-react";
-import { AppContext } from "../context/AppContextObject.jsx";
+import { AppContext } from "../context/AppContextObject";
 
 const Footer = () => {
-  const { API_BASE_URL } = useContext(AppContext);
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,7 +14,7 @@ const Footer = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${API_BASE_URL}/api/user/get_categories`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/get_categories`);
         if (!response.ok) {
           throw new Error("Gagal memuat kategori");
         }

@@ -1,10 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AppContext } from "../context/AppContextObject";
 
 const ForgotPassword = () => {
-  const { API_BASE_URL } = useContext(AppContext);
   useEffect(() => {
     document.title = "Brownies Squishy - Lupa Password";
   }, []);
@@ -38,7 +37,7 @@ const ForgotPassword = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/password/email`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/password/email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
