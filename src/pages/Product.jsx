@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import ProductItem from "../components/ProductItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { AppContext } from "../context/AppContextObject";
+import { AppContext } from "../context/AppContextObject.jsx";
 import { motion } from "framer-motion";
 
 const Product = () => {

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, useCallback } from "react";
-import { AppContext } from "../context/AppContextObject";
+import { AppContext } from "../context/AppContextObject.jsx";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { toast } from "react-toastify";

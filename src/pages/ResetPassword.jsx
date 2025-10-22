@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AppContext } from "../context/AppContextObject";
+import { AppContext } from "../context/AppContextObject.jsx";
 
 const ResetPassword = () => {
   const { API_BASE_URL } = useContext(AppContext);
