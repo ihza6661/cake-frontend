@@ -85,7 +85,7 @@ const AppProvider = ({ children }) => {
       };
 
       try {
-        const response = await fetch(url, mergedOptions);
+        const response = await fetch(`${API_BASE_URL}${url}`, mergedOptions);
         if (response.status === 401) {
           if (!isLoggedOutRef.current) {
             handleLogout("Sesi Anda tidak valid atau telah berakhir.");
