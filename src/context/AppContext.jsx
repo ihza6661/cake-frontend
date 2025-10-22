@@ -120,7 +120,7 @@ const AppProvider = ({ children }) => {
     }
     setCartLoading(true);
     try {
-      const response = await authFetch(`${API_BASE_URL}/user/shopping_cart`);
+      const response = await authFetch("/user/shopping_cart");
       if (!response) {
         setCartLoading(false);
         return;
@@ -216,7 +216,7 @@ const AppProvider = ({ children }) => {
       }
 
       try {
-        const response = await authFetch(`${API_BASE_URL}/user/shopping_cart`, {
+        const response = await authFetch("/user/shopping_cart", {
           method: "POST",
           body: JSON.stringify({ product_id: itemId, qty: quantity }),
         });
@@ -246,7 +246,7 @@ const AppProvider = ({ children }) => {
     async (cartItemId) => {
       try {
         const response = await authFetch(
-          `${API_BASE_URL}/user/shopping_cart/${cartItemId}`,
+          `/user/shopping_cart/${cartItemId}`,
           { method: "DELETE" }
         );
         if (!response) return;
@@ -283,7 +283,7 @@ const AppProvider = ({ children }) => {
       }
       try {
         const response = await authFetch(
-          `${API_BASE_URL}/user/shopping_cart/${cartItemId}`,
+          `/user/shopping_cart/${cartItemId}`,
           { method: "PUT", body: JSON.stringify({ qty }) }
         );
         if (!response) return;
@@ -307,7 +307,7 @@ const AppProvider = ({ children }) => {
   const clearCart = useCallback(async () => {
     try {
       const response = await authFetch(
-        `${API_BASE_URL}/user/shopping_cart/clear`,
+        `/user/shopping_cart/clear`,
         { method: "DELETE" }
       );
       if (!response) return;
