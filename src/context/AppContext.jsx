@@ -129,6 +129,7 @@ const AppProvider = ({ children }) => {
       if (response.ok) {
         if (Array.isArray(data.data)) {
           setCartItems(data.data);
+          console.log("setCartItems called with:", data.data);
         } else if (Array.isArray(data)) {
           setCartItems(data);
         } else {
@@ -163,7 +164,6 @@ const AppProvider = ({ children }) => {
   }, [handleLogout, INACTIVITY_TIMEOUT]);
 
   useEffect(() => {
-    console.log("AppContext useEffect triggered. Token:", token);
     isLoggedOutRef.current = !token;
     if (token) {
       fetchCartItems();

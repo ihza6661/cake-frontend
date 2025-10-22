@@ -300,7 +300,6 @@ const Checkout = () => {
             },
             onError: function (result) {
               console.error("Payment Error:", result);
-              console.log("Cart items before error toast:", cartItems);
               toast.error(
                 `Pembayaran gagal: ${
                   result?.status_message || "Silakan coba lagi."
@@ -309,7 +308,6 @@ const Checkout = () => {
               setIsProcessing(false);
             },
             onClose: function () {
-              console.log("Midtrans popup closed. Cart items before toast:", cartItems);
               toast.warn("Anda menutup jendela pembayaran.", {
                 autoClose: 3000,
               });
