@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AppContext } from "./AppContextObject";
+import { API_BASE_URL } from "../config";
 
 const AppProvider = ({ children }) => {
   const [token, setToken] = useState(
@@ -16,7 +17,6 @@ const AppProvider = ({ children }) => {
   const currency = "Rp. ";
   const navigate = useNavigate();
   const location = useLocation();
-import { API_BASE_URL } from "../config";
   const INACTIVITY_TIMEOUT = 15 * 60 * 1000;
   const inactivityTimerRef = useRef(null);
   const isLoggedOutRef = useRef(false);
