@@ -52,10 +52,10 @@ const About = () => {
             Kisah Kami
           </h2>
           <p className="mb-4">
-            Brownies Squishy bermula dari dapur pendirinya, Yulita. Apa yang awalnya
+            Brownies Squishy bermula dari dapur pendirinya, Squishy. Apa yang awalnya
             hanya berupa kegiatan memanggang untuk teman dan keluarga segera
             berkembang ketika kabar tentang kelezatan kuenya menyebar. Dalam
-            waktu satu tahun, Yulita membuka toko roti kecil pertama kami.
+            waktu satu tahun, Squishy membuka toko roti kecil pertama kami.
           </p>
           <p className="mb-4">
             Selama bertahun-tahun, kami telah memperluas tim kami dengan para
@@ -66,7 +66,7 @@ const About = () => {
           </p>
           <p className="mb-8">
             Meskipun kami telah berkembang, komitmen kami terhadap kualitas
-            tetap tidak berubah. Kami masih menggunakan resep asli Yulita,
+            tetap tidak berubah. Kami masih menggunakan resep asli Squishy,
             bahan-bahan lokal saat memungkinkan, dan memastikan setiap kue
             dibuat dengan penuh perhatian dan ketelitian.
           </p>

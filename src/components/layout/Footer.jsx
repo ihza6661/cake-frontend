@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Instagram, Mail } from "lucide-react";
-import { AppContext } from "@/context/AppContextObject";
+import * as lucideReact from "lucide-react";
 
 const Footer = () => {
   const [categories, setCategories] = useState([]);
@@ -28,7 +27,7 @@ const Footer = () => {
       }
     };
     fetchCategories();
-  }, []); 
+  }, []);
 
   const handleCategoryClick = (categoryName) => {
     navigate("/kue", { state: { selectedCategory: categoryName } });
@@ -42,10 +41,10 @@ const Footer = () => {
           {/* Kolom 1: Logo & Deskripsi */}
           <div className="md:col-span-1">
             <Link to="/">
-            {" "}
+              {" "}
               <img
                 className="w-36 py-0 px-6 mb-4  md:max-w-[200px] bg-pink-50 dark:bg-gray-300 rounded-3xl shadow-sm"
-                src="/white.png"
+                src="/brownies_squishy.png"
                 alt="Brownies Squishy Logo"
                 loading="lazy"
               />
@@ -129,22 +128,22 @@ const Footer = () => {
             {/* Ganti '#' dengan link asli */}
             <div className="flex space-x-4 mb-4">
               <a
-                href="https://www.instagram.com/cakesyulita"
+                href="https://www.instagram.com/browniessquishy"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram Brownies Squishy"
 
                 className="text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 transition-colors"
               >
-                <Instagram size={20} />
+                <lucideReact.Instagram size={20} />
               </a>
               <a
-                href="mailto:cakesyulita57@gmail.com"
+                href="mailto:browniessquishy@gmail.com"
                 aria-label="Email Brownies Squishy"
 
                 className="text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 transition-colors"
               >
-                <Mail size={20} />
+                <lucideReact.Mail size={20} />
               </a>
               <a
                 href="https://wa.me/6289603324917"

@@ -24,7 +24,7 @@ const Contact = () => {
       >
         {/* Title Section */}
         <div className="text-center md:text-start text-2xl border-t border-pink-200 pt-24 sm:pt-28 lg:pt-36">
-          <Title text1="Kontak" text2="Yulita Cakes" />
+          <Title text1="Kontak" text2="Brownies Squishy" />
           <p className="text-sm sm:text-base max-w-xl mx-auto md:mx-0">
             Ada pertanyaan atau permintaan khusus? Jangan ragu untuk menghubungi
             kami langsung!
@@ -62,7 +62,7 @@ const Contact = () => {
                 <lucideReact.Instagram size={22} className="text-pink-500" /> @browniessquishy
               </a>
               <a
-                href="mailto:cakesyulita57@gmail.com"
+                href="mailto:browniessquishy@gmail.com"
                 className="flex items-center gap-2 hover:text-pink-800 transition"
               >
                 <lucideReact.Mail size={22} className="text-pink-500" />{" "}
