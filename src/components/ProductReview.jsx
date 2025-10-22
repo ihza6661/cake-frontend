@@ -73,7 +73,7 @@ const ProductReview = ({ productId }) => {
       setReviewError(null);
       try {
         const response = await fetch(
-          `/api/user/products/${productId}/reviews?page=${page}`
+          `${import.meta.env.VITE_API_URL}/api/user/products/${productId}/reviews?page=${page}`
         );
         if (!response.ok) {
           throw new Error(`Gagal memuat ulasan (${response.status})`);

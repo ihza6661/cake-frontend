@@ -16,7 +16,7 @@ const RelatedProducts = ({ categoryId, currentProductId }) => {
     const fetchRelatedProducts = async () => {
       setLoading(true);
       setError(null);
-      let url = `/api/user/get_related_products?category_id=${categoryId}`;
+      let url = `${import.meta.env.VITE_API_URL}/api/user/get_related_products?category_id=${categoryId}`;
       if (currentProductId) {
         url += `&product_id=${currentProductId}`;
       }

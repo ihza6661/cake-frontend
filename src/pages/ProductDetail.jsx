@@ -26,7 +26,7 @@ const ProductDetail = () => {
       setError(null);
       setProductData(null);
       try {
-        const response = await fetch(`/api/user/product/${slug}/detail`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/product/${slug}/detail`);
 
         if (!response.ok) {
           if (response.status === 404) {
