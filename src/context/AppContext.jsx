@@ -163,6 +163,7 @@ const AppProvider = ({ children }) => {
   }, [handleLogout, INACTIVITY_TIMEOUT]);
 
   useEffect(() => {
+    console.log("AppContext useEffect triggered. Token:", token);
     isLoggedOutRef.current = !token;
     if (token) {
       fetchCartItems();
