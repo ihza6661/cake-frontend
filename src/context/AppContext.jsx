@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AppContext } from "@/context/AppContextObject";
 
-const API_BASE_URL = "https://api.ocs.efolabessy.app/api";
+const API_BASE_URL = "https://api.ocs.efolabessy.app";
 
 const AppProvider = ({ children }) => {
   const [token, setToken] = useState(
@@ -38,7 +38,7 @@ const AppProvider = ({ children }) => {
       const currentTokenForApiCall = sessionStorage.getItem("token");
       try {
         if (currentTokenForApiCall) {
-          await fetch(`${API_BASE_URL}/user/logout`, {
+          await fetch(`${API_BASE_URL}/api/user/logout`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const AppProvider = ({ children }) => {
       };
 
       try {
-        const response = await fetch(`${API_BASE_URL}${url}`, mergedOptions);
+        const response = await fetch(`${API_BASE_URL}/api${url}`, mergedOptions);
         if (response.status === 401) {
           if (!isLoggedOutRef.current) {
             handleLogout("Sesi Anda tidak valid atau telah berakhir.");
