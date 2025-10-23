@@ -41,7 +41,7 @@ const Testimonials = () => {
       setError(null);
       setTestimonials([]);
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/user/reviews/featured?limit=3`);
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/reviews/featured?limit=3`);
         if (!response.ok) {
           throw new Error(`Gagal memuat testimoni (${response.status})`);
         }

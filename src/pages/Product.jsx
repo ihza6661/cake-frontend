@@ -42,7 +42,7 @@ const Product = () => {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}api/user/get_categories`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/get_categories`);
       if (!response.ok) throw new Error("Gagal memuat kategori");
       const data = await response.json();
       setCategories(data.data || []);
