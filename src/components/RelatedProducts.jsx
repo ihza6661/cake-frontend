@@ -4,7 +4,7 @@ import Title from "./Title";
 import ProductItem from "./ProductItem";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { AppContext } from "../context/AppContextObject";
+
 
 const RelatedProducts = ({ categoryId, currentProductId }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);

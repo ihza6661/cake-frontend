@@ -60,7 +60,7 @@ const AppProvider = ({ children }) => {
         isLoggedOutRef.current = false;
       }
     },
-    [navigate, updateToken, API_BASE_URL, location.pathname]
+    [navigate, updateToken, location.pathname]
   );
 
   const authFetch = useCallback(
@@ -148,7 +148,7 @@ const AppProvider = ({ children }) => {
     } finally {
       setCartLoading(false);
     }
-  }, [authFetch, token, API_BASE_URL]);
+  }, [authFetch, token]);
 
   const resetInactivityTimer = useCallback(() => {
     if (inactivityTimerRef.current) {
@@ -237,7 +237,7 @@ const AppProvider = ({ children }) => {
         }
       }
     },
-    [authFetch, fetchCartItems, API_BASE_URL, handleLogout]
+    [authFetch, fetchCartItems, handleLogout]
   );
 
   const removeFromCart = useCallback(
@@ -268,7 +268,7 @@ const AppProvider = ({ children }) => {
         }
       }
     },
-    [authFetch, fetchCartItems, API_BASE_URL]
+    [authFetch, fetchCartItems]
   );
 
   const updateQuantity = useCallback(
@@ -299,7 +299,7 @@ const AppProvider = ({ children }) => {
         }
       }
     },
-    [authFetch, fetchCartItems, API_BASE_URL, removeFromCart]
+    [authFetch, fetchCartItems, removeFromCart]
   );
 
   const clearCart = useCallback(async () => {
@@ -328,7 +328,7 @@ const AppProvider = ({ children }) => {
         console.error("Error clearing cart (catch):", error.message);
       }
     }
-  }, [authFetch, API_BASE_URL]);
+  }, [authFetch]);
 
   const getCartCount = () =>
     cartItems.reduce((total, item) => total + (item.qty || 0), 0);

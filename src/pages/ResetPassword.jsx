@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AppContext } from "@/context/AppContextObject";
+
 
 const ResetPassword = () => {
   const navigate = useNavigate();
